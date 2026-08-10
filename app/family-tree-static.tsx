@@ -46,12 +46,50 @@ function getExpandedPath(node: FamilyNode, focusPersonId: string) {
   return expandedIds;
 }
 
+function getExpandedSubtree(node: FamilyNode, targetNodeId: string) {
+  const expandedIds = new Set<string>();
+
+  function expandDescendants(candidate: FamilyNode) {
+    if (!candidate.children?.length) return;
+    expandedIds.add(candidate.id);
+    candidate.children.forEach(expandDescendants);
+  }
+
+  function visit(candidate: FamilyNode): boolean {
+    if (candidate.id === targetNodeId) {
+      expandDescendants(candidate);
+      return true;
+    }
+
+    for (const child of candidate.children ?? []) {
+      if (visit(child)) {
+        if (candidate.children?.length) expandedIds.add(candidate.id);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  return visit(node) ? expandedIds : undefined;
+}
+
+function findFamilyNode(node: FamilyNode, targetNodeId: string): FamilyNode | undefined {
+  if (node.id === targetNodeId) return node;
+  for (const child of node.children ?? []) {
+    const match = findFamilyNode(child, targetNodeId);
+    if (match) return match;
+  }
+  return undefined;
+}
+
 function FamilyChartPerson({
   person,
   focusPersonId,
+  showProfileLinks,
 }: {
   person: FamilyPerson;
   focusPersonId: string;
+  showProfileLinks: boolean;
 }) {
   const focused = person.id === focusPersonId;
   return (
@@ -61,7 +99,7 @@ function FamilyChartPerson({
     >
       <span className="family-chart-relation">{person.relation}</span>
       <span className="family-chart-name">
-        {person.href ? (
+        {showProfileLinks && person.href ? (
           <a href={person.href}>{person.name}</a>
         ) : (
           person.name
@@ -77,11 +115,13 @@ function FamilyChartBranch({
   expandedIds,
   focusPersonId,
   viewId,
+  showProfileLinks,
 }: {
   node: FamilyNode;
   expandedIds: ReadonlySet<string>;
   focusPersonId: string;
   viewId: string;
+  showProfileLinks: boolean;
 }) {
   const familyLabel = getFamilyLabel(node);
   const hasChildren = Boolean(node.children?.length);
@@ -89,7 +129,12 @@ function FamilyChartBranch({
   const people = (
     <span className="family-chart-people">
       {node.people.map((person) => (
-        <FamilyChartPerson person={person} focusPersonId={focusPersonId} key={person.id} />
+        <FamilyChartPerson
+          person={person}
+          focusPersonId={focusPersonId}
+          showProfileLinks={showProfileLinks}
+          key={person.id}
+        />
       ))}
     </span>
   );
@@ -123,6 +168,7 @@ function FamilyChartBranch({
               expandedIds={expandedIds}
               focusPersonId={focusPersonId}
               viewId={viewId}
+              showProfileLinks={showProfileLinks}
               key={child.id}
             />
           ))}
@@ -136,12 +182,23 @@ export function FamilyTreeWidget({
   document,
   focusPersonId,
   viewId,
+  defaultExpandedNodeId,
+  showProfileLinks = true,
 }: {
   document: FamilyDocument;
   focusPersonId: string;
   viewId: string;
+  defaultExpandedNodeId?: string;
+  showProfileLinks?: boolean;
 }) {
-  const expandedIds = getExpandedPath(document.root, focusPersonId);
+  const expandedIds = defaultExpandedNodeId
+    ? getExpandedSubtree(document.root, defaultExpandedNodeId) ??
+      getExpandedPath(document.root, focusPersonId)
+    : getExpandedPath(document.root, focusPersonId);
+  const defaultExpandedNode = defaultExpandedNodeId
+    ? findFamilyNode(document.root, defaultExpandedNodeId)
+    : undefined;
+  const defaultExpandedName = defaultExpandedNode?.people[0]?.name;
   const treeId = `${viewId}-interactive-tree`;
   const titleId = `${viewId}-chart-title`;
   const noteId = `${viewId}-chart-note`;
@@ -152,6 +209,8 @@ export function FamilyTreeWidget({
       data-family-interactive-tree
       data-ren-family-tree
       data-family-focus-person={focusPersonId}
+      data-family-default-expanded-node={defaultExpandedNodeId}
+      data-family-profile-links={showProfileLinks ? "true" : "false"}
       data-family-allow-query
     >
       <div className="family-chart-toolbar" role="group" aria-label="族谱展开控制">
@@ -162,7 +221,9 @@ export function FamilyTreeWidget({
           全部收起
         </button>
         <p className="family-chart-status" data-family-tree-status aria-live="polite" aria-atomic="true">
-          默认展开任东风一支
+          {defaultExpandedName
+            ? `默认展开${defaultExpandedName}以下全部家人`
+            : "默认展开当前人物一支"}
         </p>
       </div>
 
@@ -184,6 +245,7 @@ export function FamilyTreeWidget({
               expandedIds={expandedIds}
               focusPersonId={focusPersonId}
               viewId={viewId}
+              showProfileLinks={showProfileLinks}
             />
           </ol>
         </div>

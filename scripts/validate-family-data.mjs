@@ -61,16 +61,16 @@ function findNode(node, id) {
 }
 
 const familyText = JSON.stringify(documentData);
-for (const name of ["任之清", "任百智", "郜氏", "马胡彪", "刘长轩", "任世美", "郜李俊"]) {
+for (const name of ["任之清", "任百智", "郜氏", "马胡彪", "马茹", "刘长轩", "任世美", "郜李俊"]) {
   assert.ok(familyText.includes(name), `confirmed family name is missing: ${name}`);
 }
 assert.ok(
   !/任之常|任百安|刘兴祥|任士美|郭李俊/.test(familyText),
   "superseded family names must not remain in the central tree",
 );
-assert.equal(nodeIds.size, 69, "unexpected family node count");
-assert.equal(personCount, 112, "unexpected person count");
-assert.equal(expandableCount, 26, "unexpected expandable branch count");
+assert.equal(nodeIds.size, 70, "unexpected family node count");
+assert.equal(personCount, 113, "unexpected person count");
+assert.equal(expandableCount, 27, "unexpected expandable branch count");
 
 const zhiqingFamily = findNode(documentData.root, "ren-zhichang-family");
 assert.equal(zhiqingFamily?.people[0]?.name, "任之清", "the grandfather node must be 任之清");
@@ -85,6 +85,17 @@ assert.deepEqual(
 );
 const baimeiFamily = findNode(documentData.root, "ren-baimei-family");
 assert.equal(baimeiFamily?.children?.[0]?.people?.[0]?.name, "马胡彪", "任百美之子应为马胡彪");
+const mahubiaoFamily = findNode(documentData.root, "ma-hubiao");
+assert.deepEqual(
+  mahubiaoFamily?.children?.[0]?.people?.[0],
+  {
+    relation: "女儿",
+    name: "马茹",
+    note: "家人口述补名",
+    id: "ma-ru--person-1",
+  },
+  "马胡彪之女应为马茹",
+);
 const shirongFamily = findNode(documentData.root, "ren-shirong-family");
 assert.equal(shirongFamily?.people?.[1]?.name, "刘长轩", "任世荣配偶应为刘长轩");
 const shimeiFamily = findNode(documentData.root, "ren-shimei-family");

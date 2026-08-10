@@ -54,7 +54,42 @@
     return expandedIds;
   }
 
-  function renderPerson(person, focusPersonId, markFocusAsCurrentPage) {
+  function expandedSubtree(root, targetNodeId) {
+    const expandedIds = new Set();
+
+    function expandDescendants(node) {
+      if (!node.children?.length) return;
+      expandedIds.add(node.id);
+      node.children.forEach(expandDescendants);
+    }
+
+    function visit(node) {
+      if (node.id === targetNodeId) {
+        expandDescendants(node);
+        return true;
+      }
+      for (const child of node.children ?? []) {
+        if (visit(child)) {
+          if (node.children?.length) expandedIds.add(node.id);
+          return true;
+        }
+      }
+      return false;
+    }
+
+    return visit(root) ? expandedIds : null;
+  }
+
+  function findNode(root, targetNodeId) {
+    if (root.id === targetNodeId) return root;
+    for (const child of root.children ?? []) {
+      const match = findNode(child, targetNodeId);
+      if (match) return match;
+    }
+    return null;
+  }
+
+  function renderPerson(person, focusPersonId, markFocusAsCurrentPage, showProfileLinks) {
     const focused = person.id === focusPersonId;
     const personNode = element(
       "span",
@@ -65,7 +100,7 @@
 
     const nameNode = element("span", "family-chart-name");
     const href = safeUrl(person.href);
-    if (href) {
+    if (href && showProfileLinks) {
       const link = element("a", "", person.name);
       link.href = href;
       if (focused && markFocusAsCurrentPage) link.setAttribute("aria-current", "page");
@@ -82,15 +117,24 @@
     return personNode;
   }
 
-  function renderPeople(node, focusPersonId, markFocusAsCurrentPage) {
+  function renderPeople(node, focusPersonId, markFocusAsCurrentPage, showProfileLinks) {
     const peopleNode = element("span", "family-chart-people");
     node.people.forEach((person) =>
-      peopleNode.append(renderPerson(person, focusPersonId, markFocusAsCurrentPage)),
+      peopleNode.append(
+        renderPerson(person, focusPersonId, markFocusAsCurrentPage, showProfileLinks),
+      ),
     );
     return peopleNode;
   }
 
-  function renderBranch(node, expandedIds, focusPersonId, viewId, markFocusAsCurrentPage) {
+  function renderBranch(
+    node,
+    expandedIds,
+    focusPersonId,
+    viewId,
+    markFocusAsCurrentPage,
+    showProfileLinks,
+  ) {
     const hasChildren = Boolean(node.children?.length);
     const familyLabel = node.people.map((person) => person.name).join("与");
     const branch = element(
@@ -104,7 +148,7 @@
       const unit = element("div", unitClassName);
       unit.setAttribute("role", "group");
       unit.setAttribute("aria-label", familyLabel);
-      unit.append(renderPeople(node, focusPersonId, markFocusAsCurrentPage));
+      unit.append(renderPeople(node, focusPersonId, markFocusAsCurrentPage, showProfileLinks));
       branch.append(unit);
       return branch;
     }
@@ -114,7 +158,7 @@
     details.open = expandedIds.has(node.id);
 
     const summary = element("summary", `${unitClassName} family-chart-summary`);
-    summary.append(renderPeople(node, focusPersonId, markFocusAsCurrentPage));
+    summary.append(renderPeople(node, focusPersonId, markFocusAsCurrentPage, showProfileLinks));
     const toggle = element("span", "family-chart-toggle");
     toggle.setAttribute("aria-hidden", "true");
     summary.append(toggle);
@@ -128,7 +172,14 @@
     children.setAttribute("aria-label", `${familyLabel}的后代`);
     node.children.forEach((child) =>
       children.append(
-        renderBranch(child, expandedIds, focusPersonId, viewId, markFocusAsCurrentPage),
+        renderBranch(
+          child,
+          expandedIds,
+          focusPersonId,
+          viewId,
+          markFocusAsCurrentPage,
+          showProfileLinks,
+        ),
       ),
     );
     details.append(children);
@@ -136,7 +187,7 @@
     return branch;
   }
 
-  function enhanceControls(tree, focusName) {
+  function enhanceControls(tree, initialDescription) {
     const expandAllButton = tree.querySelector("[data-family-expand-all]");
     const collapseAllButton = tree.querySelector("[data-family-collapse-all]");
     const status = tree.querySelector("[data-family-tree-status]");
@@ -188,7 +239,7 @@
 
     tree.dataset.enhanced = "true";
     const expandedCount = branches.filter((branch) => branch.open).length;
-    updateState(`默认展开${focusName}一支，已打开${expandedCount}个分支。`);
+    updateState(`${initialDescription}，已打开${expandedCount}个分支。`);
   }
 
   function maybeLoadSharedStyles(tree) {
@@ -201,14 +252,23 @@
     document.head.append(link);
   }
 
-  function resolveFocusPersonId(tree, documentData, people) {
+  function resolveFocusPerson(tree, documentData, people) {
     let focusPersonId = tree.dataset.familyFocusPerson || documentData.defaultFocusPersonId;
+    let requestedByQuery = false;
     if (tree.hasAttribute("data-family-allow-query")) {
       const params = new URLSearchParams(window.location.search);
       const requestedFocus = params.get("person") || params.get("focus");
-      if (requestedFocus && people.has(requestedFocus)) focusPersonId = requestedFocus;
+      if (requestedFocus && people.has(requestedFocus)) {
+        focusPersonId = requestedFocus;
+        requestedByQuery = true;
+      }
     }
-    return people.has(focusPersonId) ? focusPersonId : documentData.defaultFocusPersonId;
+    return {
+      focusPersonId: people.has(focusPersonId)
+        ? focusPersonId
+        : documentData.defaultFocusPersonId,
+      requestedByQuery,
+    };
   }
 
   async function loadFamilyData(tree) {
@@ -232,14 +292,27 @@
       const documentData = await loadFamilyData(tree);
       assertFamilyDocument(documentData);
       const people = collectPeople(documentData.root);
-      const focusPersonId = resolveFocusPersonId(tree, documentData, people);
+      const { focusPersonId, requestedByQuery } = resolveFocusPerson(
+        tree,
+        documentData,
+        people,
+      );
       const focusPerson = people.get(focusPersonId);
       const root = tree.querySelector("[data-family-root]");
       if (!root) throw new Error("Family tree root is missing");
 
       const viewId = root.closest("[id]")?.id || documentData.treeId;
-      const expandedIds = expandedPath(documentData.root, focusPersonId);
+      const defaultExpandedNodeId = tree.dataset.familyDefaultExpandedNode;
+      const defaultExpandedNode = defaultExpandedNodeId
+        ? findNode(documentData.root, defaultExpandedNodeId)
+        : null;
+      const expandedIds =
+        !requestedByQuery && defaultExpandedNodeId
+          ? expandedSubtree(documentData.root, defaultExpandedNodeId) ??
+            expandedPath(documentData.root, focusPersonId)
+          : expandedPath(documentData.root, focusPersonId);
       const markFocusAsCurrentPage = tree.hasAttribute("data-family-profile-page");
+      const showProfileLinks = tree.dataset.familyProfileLinks !== "false";
       root.replaceChildren(
         renderBranch(
           documentData.root,
@@ -247,6 +320,7 @@
           focusPersonId,
           viewId,
           markFocusAsCurrentPage,
+          showProfileLinks,
         ),
       );
       tree.dataset.familyRevision = documentData.revision || documentData.updatedAt;
@@ -255,7 +329,13 @@
         const [year, month, day] = documentData.updatedAt.split("-");
         node.textContent = `${year}年${Number(month)}月${Number(day)}日更新`;
       });
-      enhanceControls(tree, focusPerson?.name || "当前人物");
+      const initialDescription =
+        !requestedByQuery && defaultExpandedNode
+          ? `默认展开${defaultExpandedNode.people[0]?.name || "指定人物"}以下全部家人`
+          : requestedByQuery
+            ? `已定位到${focusPerson?.name || "当前人物"}`
+            : `默认展开${focusPerson?.name || "当前人物"}一支`;
+      enhanceControls(tree, initialDescription);
       tree.dispatchEvent(
         new CustomEvent("ren-family-tree:ready", {
           bubbles: true,
@@ -265,7 +345,10 @@
     } catch (error) {
       const fallbackFocusId = tree.dataset.familyFocusPerson;
       const fallbackName = staticPeople.get(fallbackFocusId)?.name || "当前人物";
-      enhanceControls(tree, fallbackName);
+      const fallbackDefault = tree.dataset.familyDefaultExpandedNode
+        ? "默认展开任之清以下全部家人"
+        : `默认展开${fallbackName}一支`;
+      enhanceControls(tree, fallbackDefault);
       const status = tree.querySelector("[data-family-tree-status]");
       if (status) status.textContent = "中央族谱暂时无法载入，正在显示页面保存的版本。";
       console.warn("Family tree update failed; using the page snapshot.", error);

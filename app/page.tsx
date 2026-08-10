@@ -36,6 +36,8 @@ export default function Home() {
           document={familyData}
           focusPersonId={familyData.defaultFocusPersonId}
           viewId="ren-family"
+          defaultExpandedNodeId="ren-zhichang-family"
+          showProfileLinks={false}
         />
       </section>
 

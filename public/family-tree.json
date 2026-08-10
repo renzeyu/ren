@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "treeId": "guohela-ren-family",
-  "revision": "2026-08-10.2",
+  "revision": "2026-08-10.3",
   "title": "郭合拉庄任氏族谱",
   "subtitle": "依据任百全1999年手稿与家人口述持续补充",
   "updatedAt": "2026-08-10",
@@ -618,6 +618,19 @@
                         "name": "马胡彪",
                         "note": "家人口述补名",
                         "id": "ma-hubiao--person-1"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ma-ru",
+                        "people": [
+                          {
+                            "relation": "女儿",
+                            "name": "马茹",
+                            "note": "家人口述补名",
+                            "id": "ma-ru--person-1"
+                          }
+                        ]
                       }
                     ]
                   }

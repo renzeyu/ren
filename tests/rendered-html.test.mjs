@@ -65,7 +65,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, /data-family-map-view="all"/);
   assert.doesNotMatch(html, /<h4>小逯家<\/h4>|<h4>小郜庄<\/h4>/);
   assert.match(html, />完整族谱</);
-  assert.match(html, />默认展开任东风一支</);
+  assert.match(html, />默认展开任之清以下全部家人</);
   assert.match(html, />全部展开</);
   assert.match(html, />全部收起</);
   assert.ok(
@@ -80,6 +80,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />任百智</);
   assert.match(html, />郜氏</);
   assert.match(html, />马胡彪</);
+  assert.match(html, />马茹</);
   assert.match(html, />刘长轩</);
   assert.match(html, />任世美</);
   assert.match(html, />郜李俊</);
@@ -89,15 +90,20 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, /data-ren-family-tree="true"/);
   assert.match(html, /data-family-interactive-tree="true"/);
   assert.match(html, /data-family-focus-person="ren-dongfeng"/);
+  assert.match(html, /data-family-default-expanded-node="ren-zhichang-family"/);
+  assert.match(html, /data-family-profile-links="false"/);
   assert.match(html, /data-family-allow-query="true"/);
   assert.match(html, /data-family-root="true"/);
   assert.match(html, /data-family-expand-all="true"/);
   assert.match(html, /data-family-collapse-all="true"/);
 
-  assert.equal(countMatches(html, /<details\b/gi), 26);
+  assert.doesNotMatch(html, /<a\b[^>]*>任东风<\/a>/i);
+  assert.doesNotMatch(html, /<a\b[^>]*>李平<\/a>/i);
+
+  assert.equal(countMatches(html, /<details\b/gi), 27);
   assert.equal(
     countMatches(html, /<details\b[^>]*\sopen(?:=(?:""|''|"open"|'open'))?(?=\s|>)/gi),
-    5,
+    18,
   );
 
   assert.match(html, /<link[^>]+href="\/family-tree\.css"[^>]*>/i);
@@ -130,6 +136,7 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.match(dataSource, /任百智/);
   assert.match(dataSource, /郜氏/);
   assert.match(dataSource, /马胡彪/);
+  assert.match(dataSource, /马茹/);
   assert.match(dataSource, /刘长轩/);
   assert.match(dataSource, /任世美/);
   assert.match(dataSource, /郜李俊/);
@@ -145,6 +152,16 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
     ["任百智", "郜氏"],
   );
   assert.equal(findNode(data.root, "ren-baimei-family")?.children?.[0]?.people?.[0]?.name, "马胡彪");
+  assert.equal(findNode(data.root, "ma-hubiao")?.children?.[0]?.people?.[0]?.name, "马茹");
+  assert.equal(findNode(data.root, "ma-hubiao")?.children?.[0]?.people?.[0]?.relation, "女儿");
+  assert.equal(
+    findNode(data.root, "ren-dongfeng-family")?.people?.[0]?.href,
+    "https://renzeyu.github.io/rendongfeng/",
+  );
+  assert.equal(
+    findNode(data.root, "ren-dongfeng-family")?.people?.[1]?.href,
+    "https://renzeyu.github.io/liping/",
+  );
   assert.equal(findNode(data.root, "ren-shirong-family")?.people?.[1]?.name, "刘长轩");
   assert.deepEqual(
     findNode(data.root, "ren-shimei-family")?.people.map((person) => person.name),
@@ -153,6 +170,9 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
 
   assert.match(script, /family-tree\.json/);
   assert.match(script, /familyFocusPerson/);
+  assert.match(script, /familyDefaultExpandedNode/);
+  assert.match(script, /familyProfileLinks/);
+  assert.match(script, /expandedSubtree/);
   assert.match(script, /data-ren-family-tree/);
   assert.match(script, /fetch\(/);
   assert.match(css, /\[data-ren-family-tree\]/);
