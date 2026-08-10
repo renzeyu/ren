@@ -14,11 +14,13 @@
         "guohela",
         "suntuan",
         "gaoqiao",
+        "gaosonglin",
+        "guopinggou",
         "xiaotianjia",
         "xiaoningjia",
         "tiansizhuang",
         "xiaolujia-south",
-        "wangweizi",
+        "wangwei",
         "guoji",
         "renji",
         "huihe"
@@ -31,11 +33,13 @@
         "guohela",
         "suntuan",
         "gaoqiao",
+        "gaosonglin",
+        "guopinggou",
         "xiaotianjia",
         "xiaoningjia",
         "tiansizhuang",
         "xiaolujia-south",
-        "wangweizi",
+        "wangwei",
         "guoji",
         "renji",
         "shuangdui",
@@ -81,6 +85,28 @@
       "coordinateNote": "标记为村庄中心。地图检索坐标已换算为WGS84。"
     },
     {
+      "id": "gaosonglin",
+      "name": "郜松林",
+      "category": "confirmed",
+      "locationStatus": "located",
+      "coordinates": [116.772274, 33.549162],
+      "people": ["华山", "郭氏"],
+      "story": "家人口述确认，手稿中与华山之妻郭氏相关的地点就是郭合拉近旁的郜松林，不是山西省地名。",
+      "evidence": "手稿第6页；家人口述确认；现代地图地名",
+      "coordinateNote": "标记为聚落中心，不表示具体住宅。地图检索坐标已换算为WGS84。"
+    },
+    {
+      "id": "guopinggou",
+      "name": "郭平沟",
+      "category": "confirmed",
+      "locationStatus": "located",
+      "coordinates": [116.729079, 33.535066],
+      "people": ["任百贞", "刘明本"],
+      "story": "家人口述确认，手稿所记刘明本的籍贯是郭平沟。现代资料中的郭平沟是一条当地沟渠，本图以沟段作为地域锚点，不把它误写成村庄。",
+      "evidence": "手稿第5页；家人口述确认；孙疃镇沟渠资料；现代地图地名",
+      "coordinateNote": "选择郭合拉西南的一段沟渠作地域锚点，不表示具体住宅。地图检索坐标已换算为WGS84。"
+    },
+    {
       "id": "xiaotianjia",
       "name": "小田家",
       "manuscriptName": "郭集南小田家",
@@ -120,29 +146,37 @@
     },
     {
       "id": "xiaolujia-south",
-      "name": "小陆家（南边候选）",
+      "name": "小陆家",
       "manuscriptName": "南边小陆家庄",
-      "category": "likely",
+      "category": "confirmed",
       "locationStatus": "located",
-      "confidence": "medium",
       "coordinates": [116.76221, 33.464159],
       "people": ["任之兰", "陆氏"],
-      "story": "手稿记任之兰之妻陆氏来自“南边小陆家庄”。向南扩大地图后确实能找到“小陆家”，名称和方向都能对应，也与此前误认的“小逯家”不是一处；但附近还有同名聚落，具体是哪一处仍待家人确认。",
-      "evidence": "手稿第1页；扩大范围后的现代地图检索与方位核对",
-      "coordinateNote": "只标注南边候选，不表示具体聚落已经确认。地图检索坐标已换算为WGS84。"
+      "story": "手稿记任之兰之妻陆氏来自“南边小陆家庄”。家人口述确认地图上的南边小陆家就是这一地点，与此前误认的“小逯家”不是一处。",
+      "evidence": "手稿第1页；家人口述确认；现代地图地名与方位",
+      "coordinateNote": "标记为聚落中心，不表示具体住宅。地图检索坐标已换算为WGS84。"
     },
     {
-      "id": "wangweizi",
-      "name": "王圩孜",
+      "id": "wangwei",
+      "name": "王圩村",
       "manuscriptName": "王圩",
-      "category": "likely",
+      "category": "confirmed",
       "locationStatus": "located",
-      "confidence": "low",
-      "coordinates": [116.720137, 33.575235],
+      "coordinates": [116.715731, 33.579707],
       "people": ["三祖父一支二女儿", "李开岭"],
-      "story": "手稿记三祖父一支二女儿嫁给“王圩李开岭”。郭合拉西北有王圩孜，但濉溪县另有王圩村，尚不能确定原稿指哪一处。",
-      "evidence": "手稿第7页；现代地图同名候选",
-      "coordinateNote": "低可信候选，仅供家人辨认。地图检索坐标已换算为WGS84。"
+      "story": "手稿记三祖父一支二女儿嫁给“王圩李开岭”。家人口述确认这里指孙疃镇王圩村，并补充曹元庄与王圩村相距不远。",
+      "evidence": "手稿第7页；家人口述确认；孙疃镇行政村资料；现代地图地址",
+      "coordinateNote": "以王圩村村委会作行政村代表点，不表示李开岭的具体住宅。百度地图坐标已换算为WGS84。"
+    },
+    {
+      "id": "caoyuanzhuang",
+      "name": "曹元庄",
+      "category": "confirmed",
+      "locationStatus": "unlocated",
+      "people": ["任百银", "席氏"],
+      "story": "手稿记任百银之妻席氏为曹元庄人。家人口述确认曹元庄与孙疃镇王圩村相距不远；公开地图尚未检出能够唯一对应的自然庄，先保留这条可靠方位线索。",
+      "evidence": "手稿第7页；家人口述确认",
+      "coordinateNote": "具体自然庄位置仍待家人指认，因此暂不生成地图标记。"
     },
     {
       "id": "guoji",
@@ -170,14 +204,13 @@
       "id": "shuangdui",
       "name": "双堆集镇",
       "manuscriptName": "双堆",
-      "category": "likely",
-      "locationStatus": "reference",
-      "confidence": "high",
-      "coordinates": [116.890957, 33.426949],
+      "category": "confirmed",
+      "locationStatus": "located",
+      "coordinates": [116.896183, 33.425205],
       "people": ["任百爱", "周氏"],
-      "story": "手稿记任百爱之妻周氏为“双堆人”。现代双堆集镇名称明确，但原稿没有留下更具体的村庄或住址，本图仅作为地域参照。",
-      "evidence": "手稿第7页；濉溪县双堆集镇行政资料；现代地图地名",
-      "coordinateNote": "标记为镇区中心，不表示具体居住点。地图检索坐标已换算为WGS84。"
+      "story": "手稿记任百爱之妻周氏为“双堆人”。家人口述确认这里就是今天的双堆集镇。",
+      "evidence": "手稿第7页；家人口述确认；濉溪县双堆集镇行政资料；现代地图地名",
+      "coordinateNote": "标记为镇区中心，不表示具体住宅。坐标采用OpenStreetMap的WGS84镇点。"
     },
     {
       "id": "xiaoguozhuang",
@@ -198,16 +231,6 @@
       "story": "手稿后文两次写“郭桥”。现代附近只有郜桥村能够明确找到，但在家人确认前，不再把“郭桥”自动并入“郜桥”。",
       "evidence": "手稿第4页；现代地图排查",
       "coordinateNote": "尚待辨字和家人口述确认。"
-    },
-    {
-      "id": "guosonglin-unlocated",
-      "name": "山西郭松林",
-      "category": "likely",
-      "locationStatus": "unlocated",
-      "people": ["华山", "郭氏"],
-      "story": "手稿把华山之妻郭氏与“山西郭松林”联系在一起。附近虽有郜松林，但“山西”更可能是省名，不能因同音就认作郭合拉近邻。",
-      "evidence": "手稿第6页；扩大范围后的地图排查",
-      "coordinateNote": "未找到能够唯一对应的地点。"
     },
     {
       "id": "liuqiao-station-unlocated",
@@ -232,11 +255,11 @@
     {
       "id": "other-unlocated-places",
       "name": "其他尚待定位地名",
-      "manuscriptName": "杨井、相井、曹元庄、郭西沟、西四庄、河北王沟口、河北马家庄",
+      "manuscriptName": "杨井、相井、西四庄、河北王沟口、河北马家庄",
       "category": "likely",
       "locationStatus": "unlocated",
-      "people": ["任世强一支", "任百敬一支", "任百银一支", "任百贞一支", "金枝", "任伟一支", "任百美一支"],
-      "story": "这些地名能从手稿中辨出或疑读，但同名地点较多，或“河北”“山西”更可能指外省。没有名称与方位同时吻合的证据前，暂不设置坐标。",
+      "people": ["任世强一支", "任百敬一支", "金枝", "任伟一支", "任百美一支"],
+      "story": "这些地名能从手稿中辨出或疑读，但同名地点较多，或“河北”更可能指外省。没有名称与方位同时吻合的证据前，暂不设置坐标。",
       "evidence": "手稿第3至7页；扩大范围后的地图排查",
       "coordinateNote": "等待家人补充乡镇、邻村或旧行政区信息。"
     },

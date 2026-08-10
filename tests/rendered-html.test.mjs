@@ -46,8 +46,13 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />郜桥村</);
   assert.match(html, />小田家</);
   assert.match(html, />田寺庄</);
-  assert.match(html, />小陆家（南边候选）</);
+  assert.match(html, />小陆家</);
   assert.match(html, /南边小陆家庄/);
+  assert.match(html, />郜松林</);
+  assert.match(html, />郭平沟</);
+  assert.match(html, />王圩村</);
+  assert.match(html, />曹元庄</);
+  assert.match(html, />双堆集镇</);
   assert.doesNotMatch(html, /临涣小陆家庄/);
   assert.match(html, />位置尚待确认</);
   assert.match(html, />郭合拉周边</);
@@ -58,7 +63,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, /data-family-map-source="\/family-places\.json"/);
   assert.match(html, /data-family-map-view="local"/);
   assert.match(html, /data-family-map-view="all"/);
-  assert.doesNotMatch(html, /<h4>小逯家<\/h4>|<h4>小郜庄<\/h4>|<h4>郭平沟<\/h4>/);
+  assert.doesNotMatch(html, /<h4>小逯家<\/h4>|<h4>小郜庄<\/h4>/);
   assert.match(html, />完整族谱</);
   assert.match(html, />默认展开任东风一支</);
   assert.match(html, />全部展开</);
@@ -155,8 +160,24 @@ test("ships the family geography data and local MapLibre runtime", async () => {
   assert.ok(places.places.some((place) => place.id === "xiaolujia-south"));
   assert.ok(places.places.some((place) => place.id === "tiansizhuang"));
   assert.ok(places.places.some((place) => place.id === "xiaoningjia"));
+  for (const id of ["gaosonglin", "guopinggou", "xiaolujia-south", "wangwei", "shuangdui"]) {
+    const place = places.places.find((item) => item.id === id);
+    assert.ok(place, `missing confirmed place: ${id}`);
+    assert.equal(place.category, "confirmed");
+    assert.equal(place.locationStatus, "located");
+    assert.equal(place.coordinates.length, 2);
+  }
+  const caoyuanzhuang = places.places.find((place) => place.id === "caoyuanzhuang");
+  assert.ok(caoyuanzhuang);
+  assert.equal(caoyuanzhuang.category, "confirmed");
+  assert.equal(caoyuanzhuang.locationStatus, "unlocated");
+  assert.equal(caoyuanzhuang.coordinates, undefined);
   assert.match(placesSource, /南边小陆家庄/);
   assert.doesNotMatch(placesSource, /临涣小陆家庄/);
+  assert.doesNotMatch(placesSource, /山西郭松林|王圩孜|小陆家（南边候选）|郭西沟/);
+  const unresolvedAggregate = places.places.find((place) => place.id === "other-unlocated-places");
+  assert.ok(unresolvedAggregate);
+  assert.doesNotMatch(unresolvedAggregate.manuscriptName, /曹元庄|郭西沟/);
   assert.ok(places.places.every((place) => place.coordinateNote));
   assert.ok(
     places.places
@@ -165,7 +186,7 @@ test("ships the family geography data and local MapLibre runtime", async () => {
   );
   assert.ok(
     places.places.every(
-      (place) => !["小逯家", "小郜庄", "郭平沟", "任李村", "四里庄"].includes(place.name),
+      (place) => !["小逯家", "小郜庄", "任李村", "四里庄"].includes(place.name),
     ),
   );
 

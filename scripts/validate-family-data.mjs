@@ -110,7 +110,7 @@ placesData.views.forEach((view) => {
 });
 
 assert.ok(
-  !placesData.places.some((place) => ["小逯家", "小郜庄", "郭平沟", "任李村", "四里庄"].includes(place.name)),
+  !placesData.places.some((place) => ["小逯家", "小郜庄", "任李村", "四里庄"].includes(place.name)),
   "rejected map matches must not return as place records",
 );
 assert.ok(
@@ -122,6 +122,20 @@ assert.ok(
   JSON.stringify(placesData).includes("南边小陆家庄") &&
     JSON.stringify(documentData).includes("南边小陆家庄"),
   "the corrected 南边 reading is required",
+);
+for (const id of ["gaosonglin", "guopinggou", "xiaolujia-south", "wangwei", "shuangdui"]) {
+  const place = placesData.places.find((item) => item.id === id);
+  assert.ok(place, `missing confirmed place: ${id}`);
+  assert.equal(place.category, "confirmed", `${id} must preserve the family confirmation`);
+  assert.equal(place.locationStatus, "located", `${id} needs a mapped location`);
+}
+const caoyuanzhuang = placesData.places.find((place) => place.id === "caoyuanzhuang");
+assert.ok(caoyuanzhuang, "曹元庄 must remain a separate place record");
+assert.equal(caoyuanzhuang.category, "confirmed", "曹元庄 is confirmed by family testimony");
+assert.equal(caoyuanzhuang.locationStatus, "unlocated", "曹元庄 must not receive a guessed coordinate");
+assert.ok(
+  !/山西郭松林|王圩孜|小陆家（南边候选）|郭西沟/.test(JSON.stringify(placesData)),
+  "superseded map readings must not return",
 );
 
 console.log(
