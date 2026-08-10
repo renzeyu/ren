@@ -51,6 +51,47 @@ assert.ok(
   `default focus person is missing: ${documentData.defaultFocusPersonId}`,
 );
 
+function findNode(node, id) {
+  if (node.id === id) return node;
+  for (const child of node.children ?? []) {
+    const match = findNode(child, id);
+    if (match) return match;
+  }
+  return undefined;
+}
+
+const familyText = JSON.stringify(documentData);
+for (const name of ["任之清", "任百智", "郜氏", "马胡彪", "刘长轩", "任世美", "郜李俊"]) {
+  assert.ok(familyText.includes(name), `confirmed family name is missing: ${name}`);
+}
+assert.ok(
+  !/任之常|任百安|刘兴祥|任士美|郭李俊/.test(familyText),
+  "superseded family names must not remain in the central tree",
+);
+assert.equal(nodeIds.size, 69, "unexpected family node count");
+assert.equal(personCount, 112, "unexpected person count");
+assert.equal(expandableCount, 26, "unexpected expandable branch count");
+
+const zhiqingFamily = findNode(documentData.root, "ren-zhichang-family");
+assert.equal(zhiqingFamily?.people[0]?.name, "任之清", "the grandfather node must be 任之清");
+const baizhiFamily = findNode(documentData.root, "ren-baian-family");
+assert.deepEqual(
+  baizhiFamily?.people.map(({ relation, name, note }) => ({ relation, name, note })),
+  [
+    { relation: "长子", name: "任百智", note: "家人口述确认" },
+    { relation: "配偶", name: "郜氏", note: "郜桥人" },
+  ],
+  "the 任百智 household is incorrect",
+);
+const baimeiFamily = findNode(documentData.root, "ren-baimei-family");
+assert.equal(baimeiFamily?.children?.[0]?.people?.[0]?.name, "马胡彪", "任百美之子应为马胡彪");
+const shirongFamily = findNode(documentData.root, "ren-shirong-family");
+assert.equal(shirongFamily?.people?.[1]?.name, "刘长轩", "任世荣配偶应为刘长轩");
+const shimeiFamily = findNode(documentData.root, "ren-shimei-family");
+assert.equal(shimeiFamily?.people?.[0]?.name, "任世美", "手稿中的“世”字必须保留");
+assert.equal(shimeiFamily?.people?.[1]?.name, "郜李俊", "任世美配偶应为郜李俊");
+assert.match(shimeiFamily?.people?.[1]?.note ?? "", /育一女两男/, "任世美子女人数不完整");
+
 console.log(
   `Family data valid: ${nodeIds.size} family nodes, ${personCount} people, ${expandableCount} expandable branches.`,
 );

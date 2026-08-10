@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "treeId": "guohela-ren-family",
-  "revision": "2026-08-10.1",
+  "revision": "2026-08-10.2",
   "title": "郭合拉庄任氏族谱",
   "subtitle": "依据任百全1999年手稿与家人口述持续补充",
   "updatedAt": "2026-08-10",
@@ -257,8 +257,8 @@
             "people": [
               {
                 "relation": "长子",
-                "name": "任之常",
-                "note": "家人口述确认；手稿原字作“任之清”",
+                "name": "任之清",
+                "note": "家人口述确认",
                 "id": "ren-zhichang-family--person-1"
               },
               {
@@ -274,13 +274,13 @@
                 "people": [
                   {
                     "relation": "长子",
-                    "name": "任百安",
-                    "note": "家人口述确认；手稿原字作“任百智”",
+                    "name": "任百智",
+                    "note": "家人口述确认",
                     "id": "ren-baian-family--person-1"
                   },
                   {
                     "relation": "配偶",
-                    "name": "郭氏",
+                    "name": "郜氏",
                     "note": "郜桥人",
                     "id": "ren-baian-family--person-2"
                   }
@@ -540,8 +540,8 @@
                       },
                       {
                         "relation": "配偶",
-                        "name": "郭李俊",
-                        "note": "郭桥人；原稿字界待核",
+                        "name": "郜李俊",
+                        "note": "郭桥人；育一女两男",
                         "id": "ren-shimei-family--person-2"
                       }
                     ]
@@ -607,6 +607,19 @@
                     "name": "马文乾",
                     "note": "河北马家庄人；育三男二女",
                     "id": "ren-baimei-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "ma-hubiao",
+                    "people": [
+                      {
+                        "relation": "儿子",
+                        "name": "马胡彪",
+                        "note": "家人口述补名",
+                        "id": "ma-hubiao--person-1"
+                      }
+                    ]
                   }
                 ]
               },
@@ -737,8 +750,8 @@
                       },
                       {
                         "relation": "配偶",
-                        "name": "刘兴祥",
-                        "note": "籍贯字迹难辨",
+                        "name": "刘长轩",
+                        "note": "家人口述更正",
                         "id": "ren-shirong-family--person-2"
                       }
                     ],

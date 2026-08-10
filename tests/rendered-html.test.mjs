@@ -72,6 +72,15 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />任欣欣</);
   assert.match(html, />董徽</);
   assert.match(html, />任天弋</);
+  assert.match(html, />任之清</);
+  assert.match(html, />任百智</);
+  assert.match(html, />郜氏</);
+  assert.match(html, />马胡彪</);
+  assert.match(html, />刘长轩</);
+  assert.match(html, />任世美</);
+  assert.match(html, />郜李俊</);
+  assert.match(html, /育一女两男/);
+  assert.doesNotMatch(html, /任之常|任百安|刘兴祥|任士美|郭李俊/);
 
   assert.match(html, /data-ren-family-tree="true"/);
   assert.match(html, /data-family-interactive-tree="true"/);
@@ -81,7 +90,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, /data-family-expand-all="true"/);
   assert.match(html, /data-family-collapse-all="true"/);
 
-  assert.equal(countMatches(html, /<details\b/gi), 25);
+  assert.equal(countMatches(html, /<details\b/gi), 26);
   assert.equal(
     countMatches(html, /<details\b[^>]*\sopen(?:=(?:""|''|"open"|'open'))?(?=\s|>)/gi),
     5,
@@ -113,6 +122,30 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.equal(data.defaultFocusPersonId, "ren-dongfeng");
   assert.ok(data.updatedAt);
   assert.ok(data.root);
+  assert.match(dataSource, /任之清/);
+  assert.match(dataSource, /任百智/);
+  assert.match(dataSource, /郜氏/);
+  assert.match(dataSource, /马胡彪/);
+  assert.match(dataSource, /刘长轩/);
+  assert.match(dataSource, /任世美/);
+  assert.match(dataSource, /郜李俊/);
+  assert.doesNotMatch(dataSource, /任之常|任百安|刘兴祥|任士美|郭李俊/);
+
+  const findNode = (node, id) =>
+    node.id === id
+      ? node
+      : (node.children ?? []).map((child) => findNode(child, id)).find(Boolean);
+  assert.equal(findNode(data.root, "ren-zhichang-family")?.people[0]?.name, "任之清");
+  assert.deepEqual(
+    findNode(data.root, "ren-baian-family")?.people.map((person) => person.name),
+    ["任百智", "郜氏"],
+  );
+  assert.equal(findNode(data.root, "ren-baimei-family")?.children?.[0]?.people?.[0]?.name, "马胡彪");
+  assert.equal(findNode(data.root, "ren-shirong-family")?.people?.[1]?.name, "刘长轩");
+  assert.deepEqual(
+    findNode(data.root, "ren-shimei-family")?.people.map((person) => person.name),
+    ["任世美", "郜李俊"],
+  );
 
   assert.match(script, /family-tree\.json/);
   assert.match(script, /familyFocusPerson/);
