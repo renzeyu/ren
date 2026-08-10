@@ -4,6 +4,7 @@ import {
   Marker,
   NavigationControl,
   Popup,
+  ScaleControl,
 } from "./maplibre-gl.mjs";
 
 const CATEGORY_LABELS = {
@@ -28,22 +29,45 @@ function dataUrlFor(root) {
 }
 
 function assertPlacesDocument(documentData) {
-  if (!documentData || documentData.schemaVersion !== 1 || !Array.isArray(documentData.places)) {
+  if (
+    !documentData ||
+    documentData.schemaVersion !== 1 ||
+    documentData.coordinateSystem !== "WGS84" ||
+    !Array.isArray(documentData.places) ||
+    !Array.isArray(documentData.views)
+  ) {
     throw new Error("Unsupported family places data");
   }
   const styleUrl = new URL(documentData.styleUrl);
   if (styleUrl.protocol !== "https:") throw new Error("Map style must use HTTPS");
 
   documentData.places.forEach((place) => {
-    if (!place.id || !place.name || !CATEGORY_LABELS[place.category]) {
+    if (
+      !place.id ||
+      !place.name ||
+      !CATEGORY_LABELS[place.category] ||
+      !["located", "reference", "unlocated"].includes(place.locationStatus)
+    ) {
       throw new Error("Invalid family place");
     }
-    if (
-      !Array.isArray(place.coordinates) ||
-      place.coordinates.length !== 2 ||
-      !place.coordinates.every(Number.isFinite)
-    ) {
+    const hasCoordinates =
+      Array.isArray(place.coordinates) &&
+      place.coordinates.length === 2 &&
+      place.coordinates.every(Number.isFinite);
+    if (place.locationStatus === "unlocated" ? place.coordinates !== undefined : !hasCoordinates) {
       throw new Error(`Invalid coordinates for ${place.id}`);
+    }
+  });
+
+  const mappedPlaceIds = new Set(
+    documentData.places.filter((place) => place.coordinates).map((place) => place.id),
+  );
+  documentData.views.forEach((view) => {
+    if (!view.id || !view.label || !Array.isArray(view.placeIds) || view.placeIds.length === 0) {
+      throw new Error("Invalid family map view");
+    }
+    if (!view.placeIds.every((placeId) => mappedPlaceIds.has(placeId))) {
+      throw new Error(`Map view ${view.id} contains an unlocated place`);
     }
   });
 }
@@ -92,6 +116,12 @@ function mapPadding(canvas) {
     : { top: 72, right: 48, bottom: 56, left: 48 };
 }
 
+function boundsForPlaces(places) {
+  const bounds = new LngLatBounds();
+  places.forEach((place) => bounds.extend(place.coordinates));
+  return bounds;
+}
+
 async function enhanceFamilyMap(root) {
   if (root.dataset.mapInitialized === "true") return;
   root.dataset.mapInitialized = "true";
@@ -108,11 +138,12 @@ async function enhanceFamilyMap(root) {
     if (!response.ok) throw new Error(`Family places returned ${response.status}`);
     const documentData = await response.json();
     assertPlacesDocument(documentData);
+    const mappedPlaces = documentData.places.filter((place) => place.coordinates);
 
     const map = new MapLibreMap({
       container: canvas,
       style: documentData.styleUrl,
-      center: [116.756, 33.552],
+      center: [116.761125, 33.543705],
       zoom: 12,
       attributionControl: true,
       cooperativeGestures: true,
@@ -126,9 +157,11 @@ async function enhanceFamilyMap(root) {
       },
     });
     map.addControl(new NavigationControl({ showCompass: false }), "top-right");
+    map.addControl(new ScaleControl({ maxWidth: 110, unit: "metric" }), "bottom-left");
 
     const markers = new Map();
     const placesById = new Map(documentData.places.map((place) => [place.id, place]));
+    const viewsById = new Map(documentData.views.map((view) => [view.id, view]));
     const popup = new Popup({ closeButton: true, closeOnClick: true, maxWidth: "330px", offset: 18 });
     let activeMarker = null;
     let ready = false;
@@ -146,7 +179,7 @@ async function enhanceFamilyMap(root) {
       if (move) {
         map.easeTo({
           center: place.coordinates,
-          zoom: Math.max(map.getZoom(), 13.7),
+          zoom: 13.4,
           duration: reducedMotion.matches ? 0 : 420,
         });
       }
@@ -159,6 +192,26 @@ async function enhanceFamilyMap(root) {
       }
       if (announcement instanceof HTMLElement) {
         announcement.textContent = `已在地图中定位至${place.name}`;
+      }
+    }
+
+    function showView(viewId, { announce = true } = {}) {
+      const view = viewsById.get(viewId);
+      if (!view) return;
+      const viewPlaces = view.placeIds.map((placeId) => placesById.get(placeId)).filter(Boolean);
+      if (viewPlaces.length === 0) return;
+      map.fitBounds(boundsForPlaces(viewPlaces), {
+        padding: mapPadding(canvas),
+        maxZoom: viewId === "local" ? 12.2 : 10.8,
+        duration: reducedMotion.matches ? 0 : 420,
+      });
+      section?.querySelectorAll("[data-family-map-view]").forEach((button) => {
+        if (button instanceof HTMLButtonElement) {
+          button.setAttribute("aria-pressed", button.dataset.familyMapView === viewId ? "true" : "false");
+        }
+      });
+      if (announce && announcement instanceof HTMLElement) {
+        announcement.textContent = `地图已切换至${view.label}`;
       }
     }
 
@@ -175,7 +228,7 @@ async function enhanceFamilyMap(root) {
       if (section instanceof HTMLElement) section.dataset.familyMapReady = "true";
       status.textContent = "地图已加载";
 
-      documentData.places.forEach((place) => {
+      mappedPlaces.forEach((place) => {
         const marker = markerElement(place);
         marker.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -185,19 +238,20 @@ async function enhanceFamilyMap(root) {
         markers.set(place.id, marker);
       });
 
-      const bounds = new LngLatBounds(documentData.initialBounds[0], documentData.initialBounds[1]);
-      map.fitBounds(bounds, {
-        padding: mapPadding(canvas),
-        maxZoom: 13.6,
-        duration: 0,
-      });
+      showView(documentData.views[0].id, { announce: false });
 
-      document.querySelectorAll("[data-family-place-focus]").forEach((button) => {
+      section?.querySelectorAll("[data-family-place-focus]").forEach((button) => {
         const placeId = button.getAttribute("data-family-place-focus");
-        if (!(button instanceof HTMLButtonElement) || !placeId || !placesById.has(placeId)) return;
+        if (!(button instanceof HTMLButtonElement) || !placeId || !markers.has(placeId)) return;
         button.addEventListener("click", () => {
           setActivePlace(placeId, { move: true, focusMarker: true });
         });
+      });
+
+      section?.querySelectorAll("[data-family-map-view]").forEach((button) => {
+        const viewId = button.getAttribute("data-family-map-view");
+        if (!(button instanceof HTMLButtonElement) || !viewId || !viewsById.has(viewId)) return;
+        button.addEventListener("click", () => showView(viewId));
       });
     });
 

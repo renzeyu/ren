@@ -1,4 +1,5 @@
 export type FamilyPlaceCategory = "confirmed" | "likely" | "context";
+export type FamilyPlaceLocationStatus = "located" | "reference" | "unlocated";
 
 export type FamilyPlace = {
   id: string;
@@ -6,12 +7,19 @@ export type FamilyPlace = {
   mapName?: string;
   manuscriptName?: string;
   category: FamilyPlaceCategory;
+  locationStatus: FamilyPlaceLocationStatus;
   confidence?: "high" | "medium" | "low";
-  coordinates: [number, number];
+  coordinates?: [number, number];
   people: string[];
   story: string;
   evidence: string;
   coordinateNote?: string;
+};
+
+export type FamilyMapView = {
+  id: string;
+  label: string;
+  placeIds: string[];
 };
 
 export type FamilyPlacesDocument = {
@@ -20,7 +28,9 @@ export type FamilyPlacesDocument = {
   title: string;
   updatedAt: string;
   styleUrl: string;
-  initialBounds: [[number, number], [number, number]];
+  coordinateSystem: "WGS84";
+  researchNote: string;
+  views: FamilyMapView[];
   places: FamilyPlace[];
 };
 
@@ -48,12 +58,23 @@ const categoryCopy: Record<
 function PlaceEntry({ place }: { place: FamilyPlace }) {
   const category = categoryCopy[place.category];
   const sourceName = place.manuscriptName ?? place.mapName;
+  const locationLabel =
+    place.locationStatus === "unlocated"
+      ? "尚待定位"
+      : place.locationStatus === "reference"
+        ? "方位参照"
+        : null;
 
   return (
-    <article className="family-place-entry" data-family-place-entry={place.id}>
+    <article
+      className="family-place-entry"
+      data-family-place-entry={place.id}
+      data-family-place-located={place.coordinates ? "true" : "false"}
+    >
       <p className="family-place-status">
         <span className={`family-place-dot family-place-dot-${place.category}`} aria-hidden="true" />
         {category.label}
+        {locationLabel ? `·${locationLabel}` : null}
         {place.confidence === "low" ? "·低可信候选" : null}
       </p>
       <h4>{place.name}</h4>
@@ -62,9 +83,13 @@ function PlaceEntry({ place }: { place: FamilyPlace }) {
       <p className="family-place-people">{`关联人物：${place.people.join("、")}`}</p>
       <p className="family-place-source">{`依据：${place.evidence}`}</p>
       {place.coordinateNote ? <p className="family-place-coordinate-note">{place.coordinateNote}</p> : null}
-      <button className="family-place-focus" type="button" data-family-place-focus={place.id}>
-        在地图中查看
-      </button>
+      {place.coordinates ? (
+        <button className="family-place-focus" type="button" data-family-place-focus={place.id}>
+          在地图中查看
+        </button>
+      ) : (
+        <p className="family-place-unlocated">位置尚待确认</p>
+      )}
     </article>
   );
 }
@@ -80,7 +105,7 @@ export function FamilyMap({ document }: { document: FamilyPlacesDocument }) {
       <header className="family-map-heading">
         <p className="family-map-kicker">家族地理</p>
         <h2 id="family-map-title">一份手稿，落在一张地图上</h2>
-        <p>{"这些村庄、河流与集镇，把手稿中的婚姻、迁徙、求学和劳动重新放回皖北平原。地图中的推断均保留原稿写法与考证状态，等待家人继续补充。"}</p>
+        <p>{"这次把检索范围扩展到郭合拉周边及濉溪县其他方向，并重新核对原稿的名称和方位。只有得到相互支持的地点才会落图；未找到唯一对应的地名仍以文字保留，等待家人补充。"}</p>
       </header>
 
       <div className="family-map-layout">
@@ -91,6 +116,18 @@ export function FamilyMap({ document }: { document: FamilyPlacesDocument }) {
             data-family-map-source="/family-places.json"
             data-family-map-id={document.mapId}
           >
+            <div className="family-map-view-controls" data-family-map-view-controls aria-label="选择地图范围">
+              {document.views.map((view, index) => (
+                <button
+                  type="button"
+                  data-family-map-view={view.id}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                  key={view.id}
+                >
+                  {view.label}
+                </button>
+              ))}
+            </div>
             <div
               className="family-map-canvas"
               id="family-map-canvas"
@@ -109,7 +146,7 @@ export function FamilyMap({ document }: { document: FamilyPlacesDocument }) {
             <span><i className="family-place-dot family-place-dot-likely" aria-hidden="true" />待核对应</span>
             <span><i className="family-place-dot family-place-dot-context" aria-hidden="true" />生活背景</span>
           </div>
-          <p className="family-map-disclaimer">{"底图来自OpenFreeMap。村庄标记为聚落中心或截图辅助定位，不表示任何人的住宅；高德地图坐标未直接用于本图。若底图无法访问，页面中的地点记录仍可完整阅读。"}</p>
+          <p className="family-map-disclaimer">{`底图来自OpenFreeMap。${document.researchNote}中国地图检索所得坐标已换算为${document.coordinateSystem}后再用于本图，标记不表示任何人的住宅。若底图无法访问，地点记录仍可完整阅读。`}</p>
         </div>
 
         <div className="family-place-directory" aria-label="家族地点与故事">

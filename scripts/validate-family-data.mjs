@@ -59,14 +59,15 @@ assert.equal(placesData.schemaVersion, 1, "places schemaVersion must be 1");
 assert.match(placesData.mapId, /^[a-z0-9][a-z0-9-]*$/, "mapId is invalid");
 assert.match(placesData.updatedAt, /^\d{4}-\d{2}-\d{2}$/, "places updatedAt must use YYYY-MM-DD");
 assert.equal(new URL(placesData.styleUrl).protocol, "https:", "map style must use HTTPS");
+assert.equal(placesData.coordinateSystem, "WGS84", "map coordinates must use WGS84");
+assert.ok(placesData.researchNote?.trim(), "researchNote is required");
 assert.ok(Array.isArray(placesData.places) && placesData.places.length > 0, "places are required");
-assert.ok(
-  Array.isArray(placesData.initialBounds) && placesData.initialBounds.length === 2,
-  "initialBounds must contain two coordinate pairs",
-);
+assert.ok(Array.isArray(placesData.views) && placesData.views.length > 0, "map views are required");
 
 const placeIds = new Set();
 const placeCategories = new Set(["confirmed", "likely", "context"]);
+const locationStatuses = new Set(["located", "reference", "unlocated"]);
+const mappedPlaceIds = new Set();
 
 function validateCoordinates(value, label) {
   assert.ok(Array.isArray(value) && value.length === 2, `${label} must be [longitude, latitude]`);
@@ -75,21 +76,44 @@ function validateCoordinates(value, label) {
   assert.ok(value[1] >= -90 && value[1] <= 90, `${label} latitude is invalid`);
 }
 
-placesData.initialBounds.forEach((coordinates, index) =>
-  validateCoordinates(coordinates, `initialBounds[${index}]`),
-);
-
 placesData.places.forEach((place) => {
   assert.match(place.id, /^[a-z0-9][a-z0-9-]*$/, `invalid place id: ${place.id}`);
   assert.ok(!placeIds.has(place.id), `duplicate place id: ${place.id}`);
   placeIds.add(place.id);
   assert.ok(place.name?.trim(), `${place.id} needs a name`);
   assert.ok(placeCategories.has(place.category), `${place.id} has an invalid category`);
-  validateCoordinates(place.coordinates, `${place.id}.coordinates`);
+  assert.ok(locationStatuses.has(place.locationStatus), `${place.id} has an invalid locationStatus`);
+  if (place.locationStatus === "unlocated") {
+    assert.equal(place.coordinates, undefined, `${place.id} must not map an unresolved location`);
+  } else {
+    validateCoordinates(place.coordinates, `${place.id}.coordinates`);
+    mappedPlaceIds.add(place.id);
+  }
   assert.ok(Array.isArray(place.people) && place.people.length > 0, `${place.id} needs people`);
   assert.ok(place.people.every((name) => name?.trim()), `${place.id} has an empty person name`);
   assert.ok(place.story?.trim(), `${place.id} needs a story`);
   assert.ok(place.evidence?.trim(), `${place.id} needs evidence`);
 });
 
-console.log(`Family places valid: ${placeIds.size} mapped places.`);
+const viewIds = new Set();
+placesData.views.forEach((view) => {
+  assert.match(view.id, /^[a-z0-9][a-z0-9-]*$/, `invalid map view id: ${view.id}`);
+  assert.ok(!viewIds.has(view.id), `duplicate map view id: ${view.id}`);
+  viewIds.add(view.id);
+  assert.ok(view.label?.trim(), `${view.id} needs a label`);
+  assert.ok(Array.isArray(view.placeIds) && view.placeIds.length > 1, `${view.id} needs mapped places`);
+  assert.equal(new Set(view.placeIds).size, view.placeIds.length, `${view.id} has duplicate places`);
+  assert.ok(
+    view.placeIds.every((placeId) => mappedPlaceIds.has(placeId)),
+    `${view.id} contains an unknown or unlocated place`,
+  );
+});
+
+assert.ok(
+  !placesData.places.some((place) => ["小逯家", "小郜庄", "郭平沟", "任李村", "四里庄"].includes(place.name)),
+  "rejected map matches must not return as place records",
+);
+
+console.log(
+  `Family places valid: ${placeIds.size} records, ${mappedPlaceIds.size} mapped, ${placeIds.size - mappedPlaceIds.size} awaiting location.`,
+);

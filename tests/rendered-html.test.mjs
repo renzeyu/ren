@@ -44,10 +44,19 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />一份手稿，落在一张地图上</);
   assert.match(html, />郭合拉庄</);
   assert.match(html, />郜桥村</);
+  assert.match(html, />小田家</);
+  assert.match(html, />田寺庄</);
+  assert.match(html, />小陆家（南部候选）</);
+  assert.match(html, />位置尚待确认</);
+  assert.match(html, />郭合拉周边</);
+  assert.match(html, />全部已定位地点</);
   assert.match(html, />浍河</);
   assert.match(html, /data-family-map(?:="")?/);
   assert.match(html, /data-family-map-canvas(?:="")?/);
   assert.match(html, /data-family-map-source="\/family-places\.json"/);
+  assert.match(html, /data-family-map-view="local"/);
+  assert.match(html, /data-family-map-view="all"/);
+  assert.doesNotMatch(html, /<h4>小逯家<\/h4>|<h4>小郜庄<\/h4>|<h4>郭平沟<\/h4>/);
   assert.match(html, />完整族谱</);
   assert.match(html, />默认展开任东风一支</);
   assert.match(html, />全部展开</);
@@ -135,14 +144,32 @@ test("ships the family geography data and local MapLibre runtime", async () => {
   assert.equal(places.schemaVersion, 1);
   assert.equal(places.mapId, "guohela-family-geography");
   assert.equal(places.styleUrl, "https://tiles.openfreemap.org/styles/positron");
-  assert.equal(places.places.length, 12);
-  assert.equal(places.places.filter((place) => place.category === "confirmed").length, 3);
-  assert.equal(places.places.filter((place) => place.category === "likely").length, 8);
-  assert.equal(places.places.filter((place) => place.category === "context").length, 1);
+  assert.equal(places.coordinateSystem, "WGS84");
+  assert.ok(places.views.length >= 2);
+  assert.ok(places.places.length >= 18);
+  assert.ok(places.places.filter((place) => place.coordinates).length >= 10);
+  assert.ok(places.places.filter((place) => place.locationStatus === "unlocated").length >= 5);
+  assert.ok(places.places.some((place) => place.id === "xiaotianjia"));
+  assert.ok(places.places.some((place) => place.id === "xiaolujia-south"));
+  assert.ok(places.places.some((place) => place.id === "tiansizhuang"));
+  assert.ok(places.places.some((place) => place.id === "xiaoningjia"));
   assert.ok(places.places.every((place) => place.coordinateNote));
+  assert.ok(
+    places.places
+      .filter((place) => place.locationStatus === "unlocated")
+      .every((place) => place.coordinates === undefined),
+  );
+  assert.ok(
+    places.places.every(
+      (place) => !["小逯家", "小郜庄", "郭平沟", "任李村", "四里庄"].includes(place.name),
+    ),
+  );
 
   assert.match(mapScript, /from "\.\/maplibre-gl\.mjs"/);
   assert.match(mapScript, /family-places\.json/);
+  assert.match(mapScript, /ScaleControl/);
+  assert.match(mapScript, /showView/);
+  assert.match(mapScript, /locationStatus === "unlocated"/);
   assert.match(mapScript, /setDOMContent/);
   assert.doesNotMatch(mapScript, /setHTML\(/);
   assert.doesNotMatch(mapScript, /unpkg|jsdelivr/i);
