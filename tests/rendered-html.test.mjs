@@ -46,7 +46,9 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />郜桥村</);
   assert.match(html, />小田家</);
   assert.match(html, />田寺庄</);
-  assert.match(html, />小陆家（南部候选）</);
+  assert.match(html, />小陆家（南边候选）</);
+  assert.match(html, /南边小陆家庄/);
+  assert.doesNotMatch(html, /临涣小陆家庄/);
   assert.match(html, />位置尚待确认</);
   assert.match(html, />郭合拉周边</);
   assert.match(html, />全部已定位地点</);
@@ -153,6 +155,8 @@ test("ships the family geography data and local MapLibre runtime", async () => {
   assert.ok(places.places.some((place) => place.id === "xiaolujia-south"));
   assert.ok(places.places.some((place) => place.id === "tiansizhuang"));
   assert.ok(places.places.some((place) => place.id === "xiaoningjia"));
+  assert.match(placesSource, /南边小陆家庄/);
+  assert.doesNotMatch(placesSource, /临涣小陆家庄/);
   assert.ok(places.places.every((place) => place.coordinateNote));
   assert.ok(
     places.places

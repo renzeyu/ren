@@ -113,6 +113,16 @@ assert.ok(
   !placesData.places.some((place) => ["小逯家", "小郜庄", "郭平沟", "任李村", "四里庄"].includes(place.name)),
   "rejected map matches must not return as place records",
 );
+assert.ok(
+  !JSON.stringify(placesData).includes("临涣小陆家庄") &&
+    !JSON.stringify(documentData).includes("临涣小陆家庄"),
+  "the rejected 临涣 reading must not return",
+);
+assert.ok(
+  JSON.stringify(placesData).includes("南边小陆家庄") &&
+    JSON.stringify(documentData).includes("南边小陆家庄"),
+  "the corrected 南边 reading is required",
+);
 
 console.log(
   `Family places valid: ${placeIds.size} records, ${mappedPlaceIds.size} mapped, ${placeIds.size - mappedPlaceIds.size} awaiting location.`,
