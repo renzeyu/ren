@@ -86,7 +86,6 @@ h1 {
 
 .family-map-section {
   padding: clamp(58px, 8vw, 100px) 0;
-  border-bottom: 1px solid var(--ink);
 }
 
 .family-map-heading {
@@ -526,6 +525,7 @@ h1 {
 
 .tree-section {
   padding: clamp(58px, 8vw, 100px) 0;
+  border-bottom: 1px solid var(--ink);
 }
 
 footer {

@@ -31,8 +31,6 @@ export default function Home() {
         </p>
       </header>
 
-      <FamilyMap document={familyPlaces} />
-
       <section className="tree-section" aria-labelledby="ren-family-chart-title">
         <FamilyTreeWidget
           document={familyData}
@@ -40,6 +38,8 @@ export default function Home() {
           viewId="ren-family"
         />
       </section>
+
+      <FamilyMap document={familyPlaces} />
 
       <footer>
         <p>姓名与关系仍有待核之处，后续以家人确认和原始资料为准。</p>

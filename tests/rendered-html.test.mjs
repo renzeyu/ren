@@ -68,6 +68,10 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />默认展开任东风一支</);
   assert.match(html, />全部展开</);
   assert.match(html, />全部收起</);
+  assert.ok(
+    html.indexOf(">完整族谱<") < html.indexOf(">一份手稿，落在一张地图上<"),
+    "the family tree must appear before the map",
+  );
   assert.match(html, />任东风</);
   assert.match(html, />任欣欣</);
   assert.match(html, />董徽</);
@@ -154,6 +158,10 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.match(css, /\[data-ren-family-tree\]/);
   assert.match(css, /\.family-chart-details/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.doesNotMatch(
+    css,
+    /family-chart-person-current[^}]*text-decoration-color:\s*var\(--family-accent\)/s,
+  );
 });
 
 test("ships the family geography data and local MapLibre runtime", async () => {
