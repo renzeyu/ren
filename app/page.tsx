@@ -1,10 +1,16 @@
 import familyDataJson from "../public/family-tree.json";
+import familyPlacesJson from "../public/family-places.json";
+import {
+  FamilyMap,
+  type FamilyPlacesDocument,
+} from "./family-map-static";
 import {
   FamilyTreeWidget,
   type FamilyDocument,
 } from "./family-tree-static";
 
 const familyData = familyDataJson as FamilyDocument;
+const familyPlaces = familyPlacesJson as FamilyPlacesDocument;
 
 function formatUpdatedAt(value: string) {
   const [year, month, day] = value.split("-");
@@ -24,6 +30,8 @@ export default function Home() {
           {formatUpdatedAt(familyData.updatedAt)}
         </p>
       </header>
+
+      <FamilyMap document={familyPlaces} />
 
       <section className="tree-section" aria-labelledby="ren-family-chart-title">
         <FamilyTreeWidget

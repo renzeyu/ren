@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "mapId": "guohela-family-geography",
+  "title": "家族地理",
+  "updatedAt": "2026-08-10",
+  "styleUrl": "https://tiles.openfreemap.org/styles/positron",
+  "initialBounds": [
+    [116.724, 33.526],
+    [116.784, 33.578]
+  ],
+  "places": [
+    {
+      "id": "guohela",
+      "name": "郭合拉庄",
+      "mapName": "郭合拉子",
+      "category": "confirmed",
+      "coordinates": [116.76651, 33.542194],
+      "people": ["任百全", "任东风", "郭合拉任氏"],
+      "story": "《郭合拉庄任氏家族简记》的核心地点。任百全在此追述老太爷三子分宅、后代繁衍的历史。任东风1965年出生于郭合拉生产队。",
+      "evidence": "手稿标题、第1页、第7页；任东风生平",
+      "coordinateNote": "标记为地图上的聚落中心，不表示任何一户住宅。"
+    },
+    {
+      "id": "suntuan",
+      "name": "孙疃街",
+      "mapName": "孙疃镇",
+      "category": "confirmed",
+      "coordinates": [116.76869, 33.56309],
+      "people": ["任东风", "三祖父一支大女儿", "刘某"],
+      "story": "手稿记三祖父一支的大女儿嫁到孙疃街。任东风12岁起离开郭合拉，在镇上独自求学；15岁时曾在孙疃粮站装卸公粮。",
+      "evidence": "手稿第7页；任东风生平",
+      "coordinateNote": "标记为镇区中心。"
+    },
+    {
+      "id": "gaoqiao",
+      "name": "郜桥村",
+      "manuscriptName": "郜桥／郭桥",
+      "category": "confirmed",
+      "coordinates": [116.72633, 33.552444],
+      "people": ["任百智", "任世宗", "任世美", "郭李俊"],
+      "story": "手稿明确记任百智之妻郭氏为“郜桥人”；任世宗之妻及任世美配偶郭李俊的相关记载写作“郭桥”。现代地图作“郜桥”，后两处可能是同地异写。",
+      "evidence": "手稿第3至4页",
+      "coordinateNote": "标记为村庄中心；原稿中的两种写法均予保留。"
+    },
+    {
+      "id": "xiaogaozhuang",
+      "name": "小郜庄",
+      "manuscriptName": "小郭庄",
+      "category": "likely",
+      "confidence": "high",
+      "coordinates": [116.737701, 33.546124],
+      "people": ["张淑芳", "任百全"],
+      "story": "手稿记张淑芳为“任集南、小郭庄人”。地图在郭合拉西侧标有小郜庄，字序和方位都较吻合，疑为同一地点。附近另有“郜小庄”，目前不宜完全排除。",
+      "evidence": "手稿第4页；地图辅助判断",
+      "coordinateNote": "根据用户提供的地图截图定位，仍待实地核对。"
+    },
+    {
+      "id": "gaosonglin",
+      "name": "郜松林",
+      "manuscriptName": "郭松林",
+      "category": "likely",
+      "confidence": "high",
+      "coordinates": [116.777654, 33.547644],
+      "people": ["华山", "郭氏"],
+      "story": "手稿记华山之妻郭氏的籍贯为“郭松林人”；现代地图作郜松林，疑为同地异写。",
+      "evidence": "手稿第6页；地图辅助判断",
+      "coordinateNote": "根据用户提供的地图截图定位，仍待实地核对。"
+    },
+    {
+      "id": "jiahetan",
+      "name": "家河滩",
+      "category": "likely",
+      "confidence": "medium",
+      "coordinates": [116.77591, 33.55938],
+      "people": ["任世荣", "刘兴祥"],
+      "story": "任世荣与刘兴祥结为夫妇。刘兴祥名前的一段籍贯字迹难辨；结合地图，“家河滩”是一种可能的读法，仍需家人口述确认。",
+      "evidence": "手稿第5页；地图辅助辨字",
+      "coordinateNote": "根据用户提供的地图截图定位，人物关联尚待确认。"
+    },
+    {
+      "id": "goukou",
+      "name": "沟口",
+      "manuscriptName": "疑作“河北王沟口”",
+      "category": "likely",
+      "confidence": "medium",
+      "coordinates": [116.7587, 33.5743],
+      "people": ["任伟", "王淑兰"],
+      "story": "王淑兰籍贯字迹较难辨。结合浍河北岸的沟口，原文可能读作“河北王沟口人”。“河北”也可能只是表示浍河北岸，而不是河北省。",
+      "evidence": "手稿第5页；地图辅助判断",
+      "coordinateNote": "根据用户提供的地图截图估算，应视为约略位置。"
+    },
+    {
+      "id": "renlicun",
+      "name": "任李村",
+      "manuscriptName": "任〔李？〕村",
+      "category": "likely",
+      "confidence": "medium",
+      "coordinates": [116.780578, 33.561217],
+      "people": ["任百俊一支大女儿", "郭明"],
+      "story": "手稿当前校作“任村郭明”，但中间可能还有“李”字。地图上的任李村提供了候选对应，尚不能据此直接改写原稿。",
+      "evidence": "手稿第6页；地图辅助辨字",
+      "coordinateNote": "根据用户提供的地图截图定位，仍待实地核对。"
+    },
+    {
+      "id": "silizhuang",
+      "name": "四里庄",
+      "manuscriptName": "西四庄",
+      "category": "likely",
+      "confidence": "low",
+      "coordinates": [116.748609, 33.547852],
+      "people": ["金枝"],
+      "story": "手稿只留下“金枝与西四庄”，句子本身并不完整。地图上的四里庄位于郭合拉西侧，可能对应，也可能是另一地点。",
+      "evidence": "手稿第6页；地图辅助判断",
+      "coordinateNote": "低可信候选，仅作补谱线索。"
+    },
+    {
+      "id": "xiaolujia",
+      "name": "小逯家",
+      "manuscriptName": "疑作“临涣小陆家庄”",
+      "category": "likely",
+      "confidence": "low",
+      "coordinates": [116.75684, 33.52904],
+      "people": ["任之兰", "陆氏"],
+      "story": "任之兰之妻陆氏的籍贯疑作“临涣小陆家庄”。地图上的小逯家同音且距离较近，但手稿带有“临涣”限定，目前不能认定为同一地点。",
+      "evidence": "手稿第1页；地图辅助判断",
+      "coordinateNote": "低可信候选，仅作补谱线索。"
+    },
+    {
+      "id": "guopinggou",
+      "name": "郭平沟",
+      "manuscriptName": "郭〔西／平〕沟",
+      "category": "likely",
+      "confidence": "low",
+      "coordinates": [116.734449, 33.533551],
+      "people": ["任百贞", "刘明本"],
+      "story": "手稿当前校作“郭〔西沟〕刘明本”，地图上的郭平沟提示难辨字也可能是“平”。需要重新核对原稿或询问家人。",
+      "evidence": "手稿第5页；地图辅助辨字",
+      "coordinateNote": "低可信候选，仅作补谱线索。"
+    },
+    {
+      "id": "huihe",
+      "name": "浍河",
+      "category": "context",
+      "coordinates": [116.7565, 33.5735],
+      "people": ["任东风及弟妹"],
+      "story": "任东风少年时常带弟弟妹妹到浍河边割猪草。河流是这一代人童年劳动和孙疃地区生活环境的重要背景。",
+      "evidence": "任东风生平",
+      "coordinateNote": "选择靠近孙疃的一段河道作为叙事锚点，不表示具体割草地点。"
+    }
+  ]
+}

@@ -41,6 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN">
       <head>
+        <link rel="stylesheet" href="/maplibre-gl.css" />
         <link rel="stylesheet" href="/family-tree.css" />
       </head>
       <body>{children}</body>

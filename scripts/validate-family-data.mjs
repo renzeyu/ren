@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const dataPath = new URL("../public/family-tree.json", import.meta.url);
+const placesPath = new URL("../public/family-places.json", import.meta.url);
 const documentData = JSON.parse(await readFile(dataPath, "utf8"));
+const placesData = JSON.parse(await readFile(placesPath, "utf8"));
 
 assert.equal(documentData.schemaVersion, 1, "schemaVersion must be 1");
 assert.match(documentData.treeId, /^[a-z0-9][a-z0-9-]*$/, "treeId is invalid");
@@ -52,3 +54,42 @@ assert.ok(
 console.log(
   `Family data valid: ${nodeIds.size} family nodes, ${personCount} people, ${expandableCount} expandable branches.`,
 );
+
+assert.equal(placesData.schemaVersion, 1, "places schemaVersion must be 1");
+assert.match(placesData.mapId, /^[a-z0-9][a-z0-9-]*$/, "mapId is invalid");
+assert.match(placesData.updatedAt, /^\d{4}-\d{2}-\d{2}$/, "places updatedAt must use YYYY-MM-DD");
+assert.equal(new URL(placesData.styleUrl).protocol, "https:", "map style must use HTTPS");
+assert.ok(Array.isArray(placesData.places) && placesData.places.length > 0, "places are required");
+assert.ok(
+  Array.isArray(placesData.initialBounds) && placesData.initialBounds.length === 2,
+  "initialBounds must contain two coordinate pairs",
+);
+
+const placeIds = new Set();
+const placeCategories = new Set(["confirmed", "likely", "context"]);
+
+function validateCoordinates(value, label) {
+  assert.ok(Array.isArray(value) && value.length === 2, `${label} must be [longitude, latitude]`);
+  assert.ok(value.every(Number.isFinite), `${label} must contain finite numbers`);
+  assert.ok(value[0] >= -180 && value[0] <= 180, `${label} longitude is invalid`);
+  assert.ok(value[1] >= -90 && value[1] <= 90, `${label} latitude is invalid`);
+}
+
+placesData.initialBounds.forEach((coordinates, index) =>
+  validateCoordinates(coordinates, `initialBounds[${index}]`),
+);
+
+placesData.places.forEach((place) => {
+  assert.match(place.id, /^[a-z0-9][a-z0-9-]*$/, `invalid place id: ${place.id}`);
+  assert.ok(!placeIds.has(place.id), `duplicate place id: ${place.id}`);
+  placeIds.add(place.id);
+  assert.ok(place.name?.trim(), `${place.id} needs a name`);
+  assert.ok(placeCategories.has(place.category), `${place.id} has an invalid category`);
+  validateCoordinates(place.coordinates, `${place.id}.coordinates`);
+  assert.ok(Array.isArray(place.people) && place.people.length > 0, `${place.id} needs people`);
+  assert.ok(place.people.every((name) => name?.trim()), `${place.id} has an empty person name`);
+  assert.ok(place.story?.trim(), `${place.id} needs a story`);
+  assert.ok(place.evidence?.trim(), `${place.id} needs evidence`);
+});
+
+console.log(`Family places valid: ${placeIds.size} mapped places.`);

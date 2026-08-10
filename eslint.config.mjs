@@ -11,8 +11,11 @@ const eslintConfig = defineConfig([
   globalIgnores([
     ".next/**",
     "dist/**",
+    "docs/**",
     "out/**",
+    "pages-dist/**",
     "build/**",
+    "public/maplibre-gl*.mjs",
     "next-env.d.ts",
   ]),
   eslint.configs.recommended,

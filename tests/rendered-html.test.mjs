@@ -40,6 +40,14 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, /<title>郭合拉庄任氏族谱<\/title>/);
   assert.match(html, /安徽濉溪·郭合拉庄/);
   assert.match(html, /依据任百全1999年所写《郭合拉庄任氏家族简记》/);
+  assert.match(html, />家族地理</);
+  assert.match(html, />一份手稿，落在一张地图上</);
+  assert.match(html, />郭合拉庄</);
+  assert.match(html, />郜桥村</);
+  assert.match(html, />浍河</);
+  assert.match(html, /data-family-map(?:="")?/);
+  assert.match(html, /data-family-map-canvas(?:="")?/);
+  assert.match(html, /data-family-map-source="\/family-places\.json"/);
   assert.match(html, />完整族谱</);
   assert.match(html, />默认展开任东风一支</);
   assert.match(html, />全部展开</);
@@ -64,7 +72,9 @@ test("server-renders the standalone Ren family tree", async () => {
   );
 
   assert.match(html, /<link[^>]+href="\/family-tree\.css"[^>]*>/i);
+  assert.match(html, /<link[^>]+href="\/maplibre-gl\.css"[^>]*>/i);
   assert.match(html, /<script[^>]+src="\/family-tree\.js"[^>]*data-static-interaction/i);
+  assert.match(html, /<script[^>]+type="module"[^>]+src="\/family-map\.mjs"[^>]*data-static-interaction/i);
   assert.match(html, /<link[^>]+rel="canonical"[^>]+href="https:\/\/renzeyu\.github\.io\/ren\/"/i);
 });
 
@@ -95,6 +105,47 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.match(css, /\[data-ren-family-tree\]/);
   assert.match(css, /\.family-chart-details/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+});
+
+test("ships the family geography data and local MapLibre runtime", async () => {
+  const placesUrl = new URL("family-places.json", publicRoot);
+  const mapScriptUrl = new URL("family-map.mjs", publicRoot);
+  const mapLibreUrl = new URL("maplibre-gl.mjs", publicRoot);
+  const mapLibreSharedUrl = new URL("maplibre-gl-shared.mjs", publicRoot);
+  const mapLibreWorkerUrl = new URL("maplibre-gl-worker.mjs", publicRoot);
+  const mapLibreCssUrl = new URL("maplibre-gl.css", publicRoot);
+  const licenseUrl = new URL("maplibre-license.txt", publicRoot);
+
+  await Promise.all([
+    access(placesUrl),
+    access(mapScriptUrl),
+    access(mapLibreUrl),
+    access(mapLibreSharedUrl),
+    access(mapLibreWorkerUrl),
+    access(mapLibreCssUrl),
+    access(licenseUrl),
+  ]);
+
+  const [placesSource, mapScript] = await Promise.all([
+    readFile(placesUrl, "utf8"),
+    readFile(mapScriptUrl, "utf8"),
+  ]);
+  const places = JSON.parse(placesSource);
+
+  assert.equal(places.schemaVersion, 1);
+  assert.equal(places.mapId, "guohela-family-geography");
+  assert.equal(places.styleUrl, "https://tiles.openfreemap.org/styles/positron");
+  assert.equal(places.places.length, 12);
+  assert.equal(places.places.filter((place) => place.category === "confirmed").length, 3);
+  assert.equal(places.places.filter((place) => place.category === "likely").length, 8);
+  assert.equal(places.places.filter((place) => place.category === "context").length, 1);
+  assert.ok(places.places.every((place) => place.coordinateNote));
+
+  assert.match(mapScript, /from "\.\/maplibre-gl\.mjs"/);
+  assert.match(mapScript, /family-places\.json/);
+  assert.match(mapScript, /setDOMContent/);
+  assert.doesNotMatch(mapScript, /setHTML\(/);
+  assert.doesNotMatch(mapScript, /unpkg|jsdelivr/i);
 });
 
 test("contains no starter preview or loading-skeleton remnants", async () => {
