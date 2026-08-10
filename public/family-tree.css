@@ -1,0 +1,507 @@
+[data-ren-family-tree] {
+  --family-paper: var(--paper, #fcfcfb);
+  --family-ink: var(--ink, #171717);
+  --family-muted: var(--muted, #666662);
+  --family-rule: var(--rule, #d7d7d2);
+  --family-rule-strong: var(--rule-strong, #9b9b95);
+  --family-accent: var(--accent, #8f2028);
+  --family-serif: var(--serif, "Songti SC", STSong, serif);
+  --family-sans: var(--sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif);
+  min-width: 0;
+  color: var(--family-ink);
+  font-family: var(--family-serif);
+}
+
+[data-ren-family-tree] .family-chart-toolbar {
+  display: none;
+  align-items: center;
+  gap: 22px;
+  min-height: 44px;
+  font-family: var(--family-sans);
+}
+
+[data-ren-family-tree][data-enhanced="true"] .family-chart-toolbar {
+  display: flex;
+}
+
+[data-ren-family-tree] .family-chart-action {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--family-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+[data-ren-family-tree] .family-chart-action:hover {
+  border-color: var(--family-rule-strong);
+  color: var(--family-ink);
+}
+
+[data-ren-family-tree] .family-chart-action:focus-visible {
+  border-color: var(--family-accent);
+  color: var(--family-accent);
+  outline: 2px solid var(--family-accent);
+  outline-offset: 3px;
+}
+
+[data-ren-family-tree] .family-chart-action:disabled {
+  border-color: transparent;
+  color: color-mix(in srgb, var(--family-muted) 45%, transparent);
+  cursor: default;
+}
+
+[data-ren-family-tree] .family-chart-status {
+  margin: 0 0 0 auto;
+  color: var(--family-muted);
+  font-family: var(--family-sans);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+[data-ren-family-tree] .family-chart-view-interactive {
+  display: block;
+  padding-top: 26px;
+}
+
+[data-ren-family-tree] .family-panel-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+[data-ren-family-tree] .family-chart-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  margin-top: 20px;
+  padding: 10px 0 28px;
+  outline: none;
+  scrollbar-color: var(--family-rule-strong) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-ren-family-tree] .family-chart-scroll:focus-visible {
+  outline: 2px solid var(--family-accent);
+  outline-offset: 5px;
+}
+
+[data-ren-family-tree] .family-chart-level {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-ren-family-tree] .family-chart-branch {
+  position: relative;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 8px;
+  text-align: center;
+}
+
+[data-ren-family-tree] .family-chart-root > .family-chart-branch {
+  padding-inline: 0;
+}
+
+[data-ren-family-tree] .family-chart-details {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+
+[data-ren-family-tree] .family-chart-details:not([open]) > .family-chart-children {
+  display: none;
+}
+
+[data-ren-family-tree] .family-chart-summary {
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 0 27px;
+  list-style: none;
+  cursor: pointer;
+}
+
+[data-ren-family-tree] .family-chart-summary::-webkit-details-marker {
+  display: none;
+}
+
+[data-ren-family-tree] .family-chart-summary::marker {
+  content: "";
+}
+
+[data-ren-family-tree] .family-chart-summary:focus-visible {
+  outline: 2px solid var(--family-accent);
+  outline-offset: 6px;
+}
+
+[data-ren-family-tree] .family-chart-toggle {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  width: 17px;
+  height: 17px;
+  transform: translateX(-50%);
+}
+
+[data-ren-family-tree] .family-chart-toggle::before,
+[data-ren-family-tree] .family-chart-toggle::after {
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  width: 11px;
+  border-top: 1px solid var(--family-ink);
+  content: "";
+}
+
+[data-ren-family-tree] .family-chart-toggle::after {
+  transform: rotate(90deg);
+  transition: transform 120ms ease;
+}
+
+[data-ren-family-tree] .family-chart-details[open] > .family-chart-summary .family-chart-toggle::after {
+  transform: rotate(0deg);
+}
+
+[data-ren-family-tree] .family-chart-toggle-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-ren-family-tree] .family-chart-unit {
+  display: flex;
+  justify-content: center;
+  min-height: 58px;
+}
+
+[data-ren-family-tree] .family-chart-branch-leaf > .family-chart-unit {
+  width: max-content;
+  margin: 0 auto;
+}
+
+[data-ren-family-tree] .family-chart-people {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+[data-ren-family-tree] .family-chart-person {
+  position: relative;
+  display: block;
+  width: 104px;
+  min-width: 104px;
+  text-align: center;
+}
+
+[data-ren-family-tree] .family-chart-person + .family-chart-person {
+  margin-left: 26px;
+}
+
+[data-ren-family-tree] .family-chart-person + .family-chart-person::before {
+  position: absolute;
+  top: 31px;
+  left: -26px;
+  width: 26px;
+  border-top: 1px solid var(--family-rule-strong);
+  content: "";
+}
+
+[data-ren-family-tree] .family-chart-relation {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--family-muted);
+  font-family: var(--family-sans);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+[data-ren-family-tree] .family-chart-name {
+  display: block;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.38;
+}
+
+[data-ren-family-tree] .family-chart-name a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+[data-ren-family-tree] .family-chart-person-current .family-chart-name {
+  text-decoration-line: underline;
+  text-decoration-color: var(--family-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+[data-ren-family-tree] .family-chart-person-note {
+  display: block;
+  max-width: 12em;
+  margin: 4px auto 0;
+  color: var(--family-muted);
+  font-family: var(--family-sans);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+[data-ren-family-tree] .family-chart-children {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  padding: 30px 0 0;
+  list-style: none;
+}
+
+[data-ren-family-tree] .family-chart-children::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 30px;
+  border-left: 1px solid var(--family-rule-strong);
+  content: "";
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch {
+  padding-top: 30px;
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch::before,
+[data-ren-family-tree] .family-chart-children > .family-chart-branch::after {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 30px;
+  border-top: 1px solid var(--family-rule-strong);
+  content: "";
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch::before {
+  right: 50%;
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch::after {
+  left: 50%;
+  border-left: 1px solid var(--family-rule-strong);
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:first-child::before,
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:last-child::after {
+  border-top: 0;
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:last-child::after {
+  border-left: 0;
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:last-child::before {
+  border-right: 1px solid var(--family-rule-strong);
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:only-child {
+  padding-top: 0;
+}
+
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:only-child::before,
+[data-ren-family-tree] .family-chart-children > .family-chart-branch:only-child::after {
+  display: none;
+}
+
+[data-ren-family-tree] .family-chart-note {
+  max-width: 720px;
+  margin: 42px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--family-rule);
+  color: var(--family-muted);
+  font-family: var(--family-sans);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 620px) {
+  [data-ren-family-tree][data-enhanced="true"] .family-chart-toolbar {
+    flex-wrap: wrap;
+    gap: 0 18px;
+  }
+
+  [data-ren-family-tree] .family-chart-status {
+    flex-basis: 100%;
+    margin: 2px 0 0;
+  }
+
+  [data-ren-family-tree] .family-chart-view-interactive {
+    padding-top: 20px;
+  }
+
+  [data-ren-family-tree] .family-chart-scroll {
+    overflow-x: hidden;
+    margin-top: 14px;
+    padding: 6px 0 20px;
+  }
+
+  [data-ren-family-tree] .family-chart-level {
+    display: block;
+    width: auto;
+    min-width: 0;
+  }
+
+  [data-ren-family-tree] .family-chart-branch,
+  [data-ren-family-tree] .family-chart-root > .family-chart-branch {
+    width: 100%;
+    padding: 0;
+    text-align: left;
+  }
+
+  [data-ren-family-tree] .family-chart-details {
+    width: auto;
+    min-width: 0;
+  }
+
+  [data-ren-family-tree] .family-chart-unit {
+    justify-content: flex-start;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+  }
+
+  [data-ren-family-tree] .family-chart-summary {
+    min-height: 44px;
+    margin: 0;
+    padding: 5px 0 5px 24px;
+  }
+
+  [data-ren-family-tree] .family-chart-toggle {
+    top: 16px;
+    bottom: auto;
+    left: 0;
+    transform: none;
+  }
+
+  [data-ren-family-tree] .family-chart-people {
+    justify-content: flex-start;
+    max-width: min(100%, 242px);
+  }
+
+  [data-ren-family-tree] .family-chart-person {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    max-width: 116px;
+    text-align: left;
+  }
+
+  [data-ren-family-tree] .family-chart-person-note {
+    margin-inline: 0;
+  }
+
+  [data-ren-family-tree] .family-chart-children {
+    display: block;
+    width: auto;
+    min-width: 0;
+    margin: 12px 0 0 4px;
+    padding: 0 0 0 14px;
+    border-left: 1px solid var(--family-rule-strong);
+  }
+
+  [data-ren-family-tree] .family-chart-children::before {
+    display: none;
+  }
+
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch:only-child {
+    padding: 0;
+  }
+
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch + .family-chart-branch {
+    margin-top: 16px;
+  }
+
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch::before,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch:first-child::before,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch:last-child::before,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch:only-child::before {
+    position: absolute;
+    top: 25px;
+    left: -14px;
+    display: block;
+    width: 11px;
+    height: 0;
+    border: 0;
+    border-top: 1px solid var(--family-rule-strong);
+    content: "";
+  }
+
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch::after {
+    display: none;
+  }
+
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch:last-child::after {
+    position: absolute;
+    top: 26px;
+    bottom: -1px;
+    left: -16px;
+    display: block;
+    width: 4px;
+    border: 0;
+    background: var(--family-paper);
+    content: "";
+  }
+
+  [data-ren-family-tree] .family-chart-note {
+    margin-top: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ren-family-tree] .family-chart-toggle::after {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  [data-ren-family-tree] .family-chart-children,
+  [data-ren-family-tree] .family-chart-children::before,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch::before,
+  [data-ren-family-tree] .family-chart-children > .family-chart-branch::after,
+  [data-ren-family-tree] .family-chart-person + .family-chart-person::before,
+  [data-ren-family-tree] .family-chart-toggle::before,
+  [data-ren-family-tree] .family-chart-toggle::after {
+    border-color: CanvasText;
+  }
+}
+
+@media print {
+  [data-ren-family-tree] .family-chart-toolbar,
+  [data-ren-family-tree] .family-chart-toggle {
+    display: none !important;
+  }
+
+  [data-ren-family-tree] .family-chart-scroll {
+    overflow: visible;
+  }
+
+  [data-ren-family-tree] .family-chart-details > .family-chart-children {
+    display: flex !important;
+  }
+}

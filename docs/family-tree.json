@@ -1,0 +1,1030 @@
+{
+  "schemaVersion": 1,
+  "treeId": "guohela-ren-family",
+  "revision": "2026-08-10.1",
+  "title": "郭合拉庄任氏族谱",
+  "subtitle": "依据任百全1999年手稿与家人口述持续补充",
+  "updatedAt": "2026-08-10",
+  "defaultFocusPersonId": "ren-dongfeng",
+  "root": {
+    "id": "ren-family-root",
+    "people": [
+      {
+        "relation": "先祖",
+        "name": "老太爷",
+        "note": "手稿又称“老老爷”，姓名与配偶均未载；育三子",
+        "id": "ren-family-root--person-1"
+      }
+    ],
+    "children": [
+      {
+        "id": "elder-branch",
+        "sectionTitle": "大老爷门下",
+        "people": [
+          {
+            "relation": "长子",
+            "name": "大老爷",
+            "note": "姓名与配偶未载",
+            "id": "elder-branch--person-1"
+          }
+        ],
+        "children": [
+          {
+            "id": "ren-zhilan-family",
+            "people": [
+              {
+                "relation": "儿子",
+                "name": "任之兰",
+                "id": "ren-zhilan-family--person-1"
+              },
+              {
+                "relation": "配偶",
+                "name": "陆氏",
+                "note": "临涣小陆家庄人",
+                "id": "ren-zhilan-family--person-2"
+              }
+            ],
+            "children": [
+              {
+                "id": "ren-baijiang-family",
+                "people": [
+                  {
+                    "relation": "长子",
+                    "name": "任百江",
+                    "note": "小名来子",
+                    "id": "ren-baijiang-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "郝氏",
+                    "note": "河南通许县人",
+                    "id": "ren-baijiang-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "ren-shiyou-family",
+                    "people": [
+                      {
+                        "relation": "长子",
+                        "name": "任世友",
+                        "note": "小名平豹子；1965年入伍，后转业至山东胜利油田",
+                        "id": "ren-shiyou-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "姓名未载",
+                        "id": "ren-shiyou-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ren-zhen",
+                        "people": [
+                          {
+                            "relation": "女儿",
+                            "name": "任珍",
+                            "id": "ren-zhen--person-1"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "ren-yu",
+                        "people": [
+                          {
+                            "relation": "女儿",
+                            "name": "任玉",
+                            "id": "ren-yu--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-baijiang-second-son",
+                    "people": [
+                      {
+                        "relation": "次子",
+                        "name": "小令",
+                        "note": "手稿疑读，正式姓名待核",
+                        "id": "ren-baijiang-second-son--person-1"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-baijiang-third-son",
+                    "people": [
+                      {
+                        "relation": "三子",
+                        "name": "姓名难辨",
+                        "note": "手稿提及1960年被带往河南通许县，姓名仍待核",
+                        "id": "ren-baijiang-third-son--person-1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ren-baihai",
+                "people": [
+                  {
+                    "relation": "次子",
+                    "name": "任百海",
+                    "note": "小名刀子；手稿记1960年病故",
+                    "id": "ren-baihai--person-1"
+                  }
+                ]
+              },
+              {
+                "id": "ren-baiying-family",
+                "people": [
+                  {
+                    "relation": "女儿",
+                    "name": "任百英",
+                    "id": "ren-baiying-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "王克堂",
+                    "note": "1953年结婚",
+                    "id": "ren-baiying-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "wang-jian-family",
+                    "people": [
+                      {
+                        "relation": "儿子",
+                        "name": "王建",
+                        "note": "手稿记任合肥轴承厂书记",
+                        "id": "wang-jian-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "姓名未载",
+                        "note": "育一男一女",
+                        "id": "wang-jian-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-baiying-elder-daughter",
+                    "people": [
+                      {
+                        "relation": "长女",
+                        "name": "乙兰",
+                        "note": "手稿疑读；配偶姓名及字界难辨，育二男一女",
+                        "id": "ren-baiying-elder-daughter--person-1"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "yinling-ling-family",
+                    "people": [
+                      {
+                        "relation": "二女",
+                        "name": "银玲",
+                        "id": "yinling-ling-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "李新华",
+                        "note": "育二女",
+                        "id": "yinling-ling-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "yinling-bell-family",
+                    "people": [
+                      {
+                        "relation": "三女",
+                        "name": "银铃",
+                        "id": "yinling-bell-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "金合义",
+                        "note": "育一女一男",
+                        "id": "yinling-bell-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "linglei-family",
+                    "people": [
+                      {
+                        "relation": "四女",
+                        "name": "玲蕾",
+                        "note": "手稿疑读",
+                        "id": "linglei-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "邹明刚",
+                        "note": "手稿疑读，首字也可能为“邵”",
+                        "id": "linglei-family--person-2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "second-branch",
+        "sectionTitle": "二老爷门下",
+        "people": [
+          {
+            "relation": "次子／二祖父",
+            "name": "二老爷",
+            "note": "姓名未载",
+            "id": "second-branch--person-1"
+          },
+          {
+            "relation": "配偶",
+            "name": "田氏",
+            "note": "郭集南小田家人",
+            "id": "second-branch--person-2"
+          }
+        ],
+        "children": [
+          {
+            "id": "ren-zhichang-family",
+            "people": [
+              {
+                "relation": "长子",
+                "name": "任之常",
+                "note": "家人口述确认；手稿原字作“任之清”",
+                "id": "ren-zhichang-family--person-1"
+              },
+              {
+                "relation": "配偶",
+                "name": "宁任氏",
+                "note": "家人口述称谓；手稿记作“宁氏”",
+                "id": "ren-zhichang-family--person-2"
+              }
+            ],
+            "children": [
+              {
+                "id": "ren-baian-family",
+                "people": [
+                  {
+                    "relation": "长子",
+                    "name": "任百安",
+                    "note": "家人口述确认；手稿原字作“任百智”",
+                    "id": "ren-baian-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "郭氏",
+                    "note": "郜桥人",
+                    "id": "ren-baian-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "ren-shiqiang-family",
+                    "people": [
+                      {
+                        "relation": "长子",
+                        "name": "任世强",
+                        "id": "ren-shiqiang-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "朱氏",
+                        "note": "籍贯疑作杨井",
+                        "id": "ren-shiqiang-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "xinhui-family",
+                        "people": [
+                          {
+                            "relation": "长子",
+                            "name": "新辉",
+                            "id": "xinhui-family--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "刘氏",
+                            "note": "育一男一女",
+                            "id": "xinhui-family--person-2"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "xinshen-shiqiang",
+                        "people": [
+                          {
+                            "relation": "次子",
+                            "name": "新申",
+                            "note": "手稿记已婚，配偶未载",
+                            "id": "xinshen-shiqiang--person-1"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "yuzhu-family",
+                        "people": [
+                          {
+                            "relation": "三子",
+                            "name": "玉珠",
+                            "note": "手稿疑读",
+                            "id": "yuzhu-family--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "朱氏",
+                            "id": "yuzhu-family--person-2"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "sifang",
+                        "people": [
+                          {
+                            "relation": "四子",
+                            "name": "四方",
+                            "id": "sifang--person-1"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "tuan",
+                        "people": [
+                          {
+                            "relation": "五子",
+                            "name": "团",
+                            "id": "tuan--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shizong-family",
+                    "people": [
+                      {
+                        "relation": "次子",
+                        "name": "任世宗",
+                        "id": "ren-shizong-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "郭氏",
+                        "note": "郭桥人",
+                        "id": "ren-shizong-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "xinkexiang-family",
+                        "people": [
+                          {
+                            "relation": "长子",
+                            "name": "新克祥",
+                            "note": "末字仍建议家人核对",
+                            "id": "xinkexiang-family--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "刘氏",
+                            "id": "xinkexiang-family--person-2"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "ren-qiyou-family",
+                        "people": [
+                          {
+                            "relation": "次子",
+                            "name": "任启友",
+                            "id": "ren-qiyou-family--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "郭氏",
+                            "id": "ren-qiyou-family--person-2"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "meizi-family",
+                        "people": [
+                          {
+                            "relation": "女儿",
+                            "name": "梅子",
+                            "note": "手稿称名，正式姓名待核",
+                            "id": "meizi-family--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "姓名未载",
+                            "id": "meizi-family--person-2"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shiyuan-family",
+                    "people": [
+                      {
+                        "relation": "三子",
+                        "name": "任世元",
+                        "id": "ren-shiyuan-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "时方婷",
+                        "note": "末字仍建议家人核对",
+                        "id": "ren-shiyuan-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "kequn-family",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "克群",
+                            "note": "末字仍建议家人核对",
+                            "id": "kequn-family--person-1"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "id": "kequn-daughter",
+                            "people": [
+                              {
+                                "relation": "女儿",
+                                "name": "姓名未载",
+                                "id": "kequn-daughter--person-1"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shiliang-family",
+                    "people": [
+                      {
+                        "relation": "四子",
+                        "name": "任世良",
+                        "id": "ren-shiliang-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "高兰",
+                        "id": "ren-shiliang-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ren-hao",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "任浩",
+                            "id": "ren-hao--person-1"
+                          },
+                          {
+                            "relation": "配偶",
+                            "name": "董徽",
+                            "note": "家人口述补名",
+                            "id": "ren-hao--person-2"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "id": "ren-tianyi",
+                            "people": [
+                              {
+                                "relation": "儿子",
+                                "name": "任天弋",
+                                "note": "家人口述补名",
+                                "id": "ren-tianyi--person-1"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "id": "ren-xinxin",
+                        "people": [
+                          {
+                            "relation": "女儿／妹妹",
+                            "name": "任欣欣",
+                            "note": "家人口述补名",
+                            "id": "ren-xinxin--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shimei-family",
+                    "people": [
+                      {
+                        "relation": "长女",
+                        "name": "任世美",
+                        "id": "ren-shimei-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "郭李俊",
+                        "note": "郭桥人；原稿字界待核",
+                        "id": "ren-shimei-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shiling-family",
+                    "people": [
+                      {
+                        "relation": "次女",
+                        "name": "任世玲",
+                        "id": "ren-shiling-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "胡大华",
+                        "note": "郭西人；育二男",
+                        "id": "ren-shiling-family--person-2"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ren-baizhen-family",
+                "people": [
+                  {
+                    "relation": "长女",
+                    "name": "任百贞",
+                    "note": "手稿记夫妻二人均于1960年病故",
+                    "id": "ren-baizhen-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "刘明本",
+                    "note": "籍贯疑作郭西沟",
+                    "id": "ren-baizhen-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "xinshen-baizhen",
+                    "people": [
+                      {
+                        "relation": "儿子",
+                        "name": "新申",
+                        "note": "育二男二女",
+                        "id": "xinshen-baizhen--person-1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "ren-baimei-family",
+                "people": [
+                  {
+                    "relation": "次女",
+                    "name": "任百美",
+                    "id": "ren-baimei-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "马文乾",
+                    "note": "河北马家庄人；育三男二女",
+                    "id": "ren-baimei-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-baiquan-family",
+                "people": [
+                  {
+                    "relation": "次子",
+                    "name": "任百全",
+                    "note": "本手稿撰笔人",
+                    "id": "ren-baiquan-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "张淑芳",
+                    "note": "任集南、小郭庄人",
+                    "id": "ren-baiquan-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "ren-dongfeng-family",
+                    "people": [
+                      {
+                        "relation": "长子／本人",
+                        "name": "任东风",
+                        "note": "1965年生",
+                        "href": "https://renzeyu.github.io/rendongfeng/",
+                        "id": "ren-dongfeng"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "李平",
+                        "href": "https://renzeyu.github.io/liping/",
+                        "id": "li-ping"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ren-zeyu",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "任泽宇",
+                            "note": "家人口述补名",
+                            "id": "ren-zeyu--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-dongya-family",
+                    "people": [
+                      {
+                        "relation": "次子",
+                        "name": "任东亚",
+                        "id": "ren-dongya-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "王新英",
+                        "id": "ren-dongya-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ren-peng",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "任鹏",
+                            "note": "家人口述补名",
+                            "id": "ren-peng--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-wei-family",
+                    "people": [
+                      {
+                        "relation": "三子",
+                        "name": "任伟",
+                        "note": "手稿记一男二女；目前家人口述确认下列二人",
+                        "id": "ren-wei-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "王淑兰",
+                        "note": "河北王沟口人",
+                        "id": "ren-wei-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "ren-mengqi",
+                        "people": [
+                          {
+                            "relation": "女儿／姐姐",
+                            "name": "任梦琪",
+                            "note": "家人口述补名",
+                            "id": "ren-mengqi--person-1"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "ren-qibin",
+                        "people": [
+                          {
+                            "relation": "儿子／弟弟",
+                            "name": "任启斌",
+                            "note": "家人口述补名",
+                            "id": "ren-qibin--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-shirong-family",
+                    "people": [
+                      {
+                        "relation": "女儿",
+                        "name": "任世荣",
+                        "id": "ren-shirong-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "刘兴祥",
+                        "note": "籍贯字迹难辨",
+                        "id": "ren-shirong-family--person-2"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "id": "liu-huan",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "刘欢",
+                            "note": "家人口述补名",
+                            "id": "liu-huan--person-1"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "liu-chang",
+                        "people": [
+                          {
+                            "relation": "儿子",
+                            "name": "刘畅",
+                            "note": "家人口述补名",
+                            "id": "liu-chang--person-1"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "ren-zhihong-family",
+            "people": [
+              {
+                "relation": "次子",
+                "name": "任之红",
+                "note": "末字仍建议家人核对",
+                "id": "ren-zhihong-family--person-1"
+              },
+              {
+                "relation": "配偶",
+                "name": "姓名难辨",
+                "id": "ren-zhihong-family--person-2"
+              }
+            ],
+            "children": [
+              {
+                "id": "ren-baijun-family",
+                "people": [
+                  {
+                    "relation": "儿子",
+                    "name": "任百俊",
+                    "id": "ren-baijun-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "刘氏",
+                    "note": "刘桥车站人",
+                    "id": "ren-baijun-family--person-2"
+                  }
+                ],
+                "children": [
+                  {
+                    "id": "ren-rumin-family",
+                    "people": [
+                      {
+                        "relation": "长子",
+                        "name": "任如民",
+                        "id": "ren-rumin-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "刘氏",
+                        "note": "北方人；育三女",
+                        "id": "ren-rumin-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "huashan-family",
+                    "people": [
+                      {
+                        "relation": "次子",
+                        "name": "华山",
+                        "id": "huashan-family--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "郭氏",
+                        "note": "山西郭松林人；育三男",
+                        "id": "huashan-family--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "ren-baijun-elder-daughter",
+                    "people": [
+                      {
+                        "relation": "长女",
+                        "name": "了头",
+                        "note": "手稿疑读",
+                        "id": "ren-baijun-elder-daughter--person-1"
+                      },
+                      {
+                        "relation": "配偶",
+                        "name": "郭明",
+                        "note": "原稿疑记任村人",
+                        "id": "ren-baijun-elder-daughter--person-2"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "jinzhi",
+                    "people": [
+                      {
+                        "relation": "次女",
+                        "name": "金枝",
+                        "note": "手稿另记“西四庄”，关系未写全",
+                        "id": "jinzhi--person-1"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "second-grandfather-daughter",
+            "people": [
+              {
+                "relation": "女儿／二姑姑",
+                "name": "姓名未载",
+                "note": "手稿记其在旧社会做童养媳时去世",
+                "id": "second-grandfather-daughter--person-1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "third-branch",
+        "sectionTitle": "三老爷门下",
+        "people": [
+          {
+            "relation": "三子／三祖父",
+            "name": "三老爷",
+            "note": "姓名与配偶未载",
+            "id": "third-branch--person-1"
+          }
+        ],
+        "children": [
+          {
+            "id": "ren-zhiyuan-family",
+            "people": [
+              {
+                "relation": "儿子",
+                "name": "任之缘",
+                "note": "末字手稿疑读",
+                "id": "ren-zhiyuan-family--person-1"
+              },
+              {
+                "relation": "配偶",
+                "name": "田氏",
+                "note": "田寺人",
+                "id": "ren-zhiyuan-family--person-2"
+              }
+            ],
+            "children": [
+              {
+                "id": "ren-baishun-family",
+                "people": [
+                  {
+                    "relation": "长子",
+                    "name": "任百顺",
+                    "id": "ren-baishun-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "郑氏",
+                    "note": "原稿子女人数栏未填",
+                    "id": "ren-baishun-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-baijing-family",
+                "people": [
+                  {
+                    "relation": "次子",
+                    "name": "任百敬",
+                    "id": "ren-baijing-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "牛氏",
+                    "note": "相井人；原稿子女人数栏未填",
+                    "id": "ren-baijing-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-baiyin-family",
+                "people": [
+                  {
+                    "relation": "三子",
+                    "name": "任百银",
+                    "id": "ren-baiyin-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "席氏",
+                    "note": "曹元庄人；原稿子女人数栏未填",
+                    "id": "ren-baiyin-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-baiai-family",
+                "people": [
+                  {
+                    "relation": "四子",
+                    "name": "任百爱",
+                    "id": "ren-baiai-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "周氏",
+                    "note": "双堆人；育四男",
+                    "id": "ren-baiai-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-bai-missing-family",
+                "people": [
+                  {
+                    "relation": "五子",
+                    "name": "任百〔缺字〕",
+                    "id": "ren-bai-missing-family--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "刘侠英",
+                    "note": "原稿子女人数栏未填",
+                    "id": "ren-bai-missing-family--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-zhiyuan-elder-daughter",
+                "people": [
+                  {
+                    "relation": "长女",
+                    "name": "姓名未载",
+                    "id": "ren-zhiyuan-elder-daughter--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "刘某",
+                    "note": "孙疃街人；末字手稿难辨",
+                    "id": "ren-zhiyuan-elder-daughter--person-2"
+                  }
+                ]
+              },
+              {
+                "id": "ren-zhiyuan-second-daughter",
+                "people": [
+                  {
+                    "relation": "次女",
+                    "name": "姓名未载",
+                    "id": "ren-zhiyuan-second-daughter--person-1"
+                  },
+                  {
+                    "relation": "配偶",
+                    "name": "李开岭",
+                    "note": "王圩人；姓名仍建议家人核对",
+                    "id": "ren-zhiyuan-second-daughter--person-2"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
