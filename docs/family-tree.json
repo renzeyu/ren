@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "treeId": "guohela-ren-family",
-  "revision": "2026-08-10.3",
+  "revision": "2026-08-10.4",
   "title": "郭合拉庄任氏族谱",
   "subtitle": "依据任百全1999年手稿与家人口述持续补充",
   "updatedAt": "2026-08-10",
@@ -499,7 +499,6 @@
                           {
                             "relation": "配偶",
                             "name": "董徽",
-                            "note": "家人口述补名",
                             "id": "ren-hao--person-2"
                           }
                         ],
@@ -510,7 +509,6 @@
                               {
                                 "relation": "儿子",
                                 "name": "任天弋",
-                                "note": "家人口述补名",
                                 "id": "ren-tianyi--person-1"
                               }
                             ]
@@ -523,7 +521,6 @@
                           {
                             "relation": "女儿／妹妹",
                             "name": "任欣欣",
-                            "note": "家人口述补名",
                             "id": "ren-xinxin--person-1"
                           }
                         ]
@@ -616,7 +613,6 @@
                       {
                         "relation": "儿子",
                         "name": "马胡彪",
-                        "note": "家人口述补名",
                         "id": "ma-hubiao--person-1"
                       }
                     ],
@@ -627,7 +623,6 @@
                           {
                             "relation": "女儿",
                             "name": "马茹",
-                            "note": "家人口述补名",
                             "id": "ma-ru--person-1"
                           }
                         ]
@@ -677,7 +672,6 @@
                           {
                             "relation": "儿子",
                             "name": "任泽宇",
-                            "note": "家人口述补名",
                             "id": "ren-zeyu--person-1"
                           }
                         ]
@@ -705,7 +699,6 @@
                           {
                             "relation": "儿子",
                             "name": "任鹏",
-                            "note": "家人口述补名",
                             "id": "ren-peng--person-1"
                           }
                         ]
@@ -735,7 +728,6 @@
                           {
                             "relation": "女儿／姐姐",
                             "name": "任梦琪",
-                            "note": "家人口述补名",
                             "id": "ren-mengqi--person-1"
                           }
                         ]
@@ -746,7 +738,6 @@
                           {
                             "relation": "儿子／弟弟",
                             "name": "任启斌",
-                            "note": "家人口述补名",
                             "id": "ren-qibin--person-1"
                           }
                         ]
@@ -775,7 +766,6 @@
                           {
                             "relation": "儿子",
                             "name": "刘欢",
-                            "note": "家人口述补名",
                             "id": "liu-huan--person-1"
                           }
                         ]
@@ -786,7 +776,6 @@
                           {
                             "relation": "儿子",
                             "name": "刘畅",
-                            "note": "家人口述补名",
                             "id": "liu-chang--person-1"
                           }
                         ]

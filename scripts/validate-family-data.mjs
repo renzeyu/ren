@@ -68,6 +68,7 @@ assert.ok(
   !/任之常|任百安|刘兴祥|任士美|郭李俊/.test(familyText),
   "superseded family names must not remain in the central tree",
 );
+assert.ok(!familyText.includes("家人口述补名"), "confirmed family names must not carry source-review labels");
 assert.equal(nodeIds.size, 70, "unexpected family node count");
 assert.equal(personCount, 113, "unexpected person count");
 assert.equal(expandableCount, 27, "unexpected expandable branch count");
@@ -91,7 +92,6 @@ assert.deepEqual(
   {
     relation: "女儿",
     name: "马茹",
-    note: "家人口述补名",
     id: "ma-ru--person-1",
   },
   "马胡彪之女应为马茹",

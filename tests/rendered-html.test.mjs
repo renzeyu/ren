@@ -85,6 +85,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />任世美</);
   assert.match(html, />郜李俊</);
   assert.match(html, /育一女两男/);
+  assert.doesNotMatch(html, /家人口述补名/);
   assert.doesNotMatch(html, /任之常|任百安|刘兴祥|任士美|郭李俊/);
 
   assert.match(html, /data-ren-family-tree="true"/);
@@ -140,6 +141,7 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.match(dataSource, /刘长轩/);
   assert.match(dataSource, /任世美/);
   assert.match(dataSource, /郜李俊/);
+  assert.doesNotMatch(dataSource, /家人口述补名/);
   assert.doesNotMatch(dataSource, /任之常|任百安|刘兴祥|任士美|郭李俊/);
 
   const findNode = (node, id) =>
