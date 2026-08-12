@@ -61,11 +61,39 @@ function findNode(node, id) {
 }
 
 const familyText = JSON.stringify(documentData);
-for (const name of ["任之清", "任百智", "郜氏", "马胡彪", "马茹", "刘长轩", "任世美", "郜李俊"]) {
+for (const name of [
+  "任之清",
+  "任百智",
+  "郜氏",
+  "新良",
+  "新书",
+  "玉珠",
+  "四方",
+  "玉团",
+  "任启光",
+  "任启友",
+  "梅子",
+  "克群",
+  "任世美",
+  "郜李俊",
+  "任百贞",
+  "刘明本",
+  "任百美",
+  "马玉乾",
+  "马胡彪",
+  "马茹",
+  "任世如民",
+  "任世山",
+  "丫头",
+  "金枝",
+  "刘长轩",
+]) {
   assert.ok(familyText.includes(name), `confirmed family name is missing: ${name}`);
 }
 assert.ok(
-  !/任之常|任百安|刘兴祥|任士美|郭李俊/.test(familyText),
+  !/任之常|任百安|刘兴祥|任士美|郭李俊|新辉|新克祥|马文乾|任如民|"华山"|"了头"/.test(
+    familyText,
+  ),
   "superseded family names must not remain in the central tree",
 );
 assert.ok(!familyText.includes("家人口述补名"), "confirmed family names must not carry source-review labels");
@@ -102,6 +130,27 @@ const shimeiFamily = findNode(documentData.root, "ren-shimei-family");
 assert.equal(shimeiFamily?.people?.[0]?.name, "任世美", "手稿中的“世”字必须保留");
 assert.equal(shimeiFamily?.people?.[1]?.name, "郜李俊", "任世美配偶应为郜李俊");
 assert.match(shimeiFamily?.people?.[1]?.note ?? "", /育一女两男/, "任世美子女人数不完整");
+
+const shiqiangFamily = findNode(documentData.root, "ren-shiqiang-family");
+assert.deepEqual(
+  shiqiangFamily?.children?.map((child) => child.people[0]?.name),
+  ["新良", "新书", "玉珠", "四方", "玉团"],
+  "任世强的五名儿子与确认档案不一致",
+);
+const shizongFamily = findNode(documentData.root, "ren-shizong-family");
+assert.deepEqual(
+  shizongFamily?.children?.map((child) => child.people[0]?.name),
+  ["任启光", "任启友", "梅子"],
+  "任世宗的子女与确认档案不一致",
+);
+assert.equal(findNode(documentData.root, "kequn-family")?.people?.[0]?.note, undefined, "克群已确认");
+assert.equal(baimeiFamily?.people?.[1]?.name, "马玉乾", "任百美配偶应为马玉乾");
+const baijunFamily = findNode(documentData.root, "ren-baijun-family");
+assert.deepEqual(
+  baijunFamily?.children?.map((child) => child.people[0]?.name),
+  ["任世如民", "任世山", "丫头", "金枝"],
+  "任百俊的四名子女与确认档案不一致",
+);
 
 console.log(
   `Family data valid: ${nodeIds.size} family nodes, ${personCount} people, ${expandableCount} expandable branches.`,
