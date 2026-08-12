@@ -79,6 +79,7 @@ test("server-renders the standalone Ren family tree", async () => {
   assert.match(html, />任之清</);
   assert.match(html, />任百智</);
   assert.match(html, />郜氏</);
+  assert.match(html, />郜明</);
   assert.match(html, />马胡彪</);
   assert.match(html, />马茹</);
   assert.match(html, />刘长轩</);
@@ -109,6 +110,7 @@ test("server-renders the standalone Ren family tree", async () => {
     html,
     /任之常|任百安|刘兴祥|任士美|郭李俊|新辉|新克祥|马文乾|>任如民<|>华山<|>了头</,
   );
+  assert.doesNotMatch(html, /<span class="family-chart-name">郭(?:氏|明)<\/span>/);
 
   assert.match(html, /data-ren-family-tree="true"/);
   assert.match(html, /data-family-interactive-tree="true"/);
@@ -158,6 +160,7 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
   assert.match(dataSource, /任之清/);
   assert.match(dataSource, /任百智/);
   assert.match(dataSource, /郜氏/);
+  assert.match(dataSource, /郜明/);
   assert.match(dataSource, /马胡彪/);
   assert.match(dataSource, /马茹/);
   assert.match(dataSource, /刘长轩/);
@@ -192,6 +195,20 @@ test("ships the central data, renderer, and scoped tree stylesheet", async () =>
     node.id === id
       ? node
       : (node.children ?? []).map((child) => findNode(child, id)).find(Boolean);
+  const allPeople = [];
+  const collectPeople = (node) => {
+    allPeople.push(...node.people);
+    (node.children ?? []).forEach(collectPeople);
+  };
+  collectPeople(data.root);
+  assert.ok(allPeople.every((person) => !person.name.startsWith("郭")));
+  assert.deepEqual(
+    findNode(data.root, "ren-shizong-family")?.people.map((person) => person.name),
+    ["任世宗", "郜氏"],
+  );
+  assert.equal(findNode(data.root, "ren-qiyou-family")?.people?.[1]?.name, "郜氏");
+  assert.equal(findNode(data.root, "huashan-family")?.people?.[1]?.name, "郜氏");
+  assert.equal(findNode(data.root, "ren-baijun-elder-daughter")?.people?.[1]?.name, "郜明");
   assert.equal(findNode(data.root, "ren-zhichang-family")?.people[0]?.name, "任之清");
   assert.deepEqual(
     findNode(data.root, "ren-baian-family")?.people.map((person) => person.name),

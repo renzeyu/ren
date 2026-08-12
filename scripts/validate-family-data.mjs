@@ -15,6 +15,7 @@ const nodeIds = new Set();
 const personIds = new Set();
 let expandableCount = 0;
 let personCount = 0;
+const familyPeople = [];
 
 function validateUrl(value, label) {
   if (!value) return;
@@ -33,6 +34,7 @@ function visit(node) {
     assert.ok(!personIds.has(person.id), `duplicate person id: ${person.id}`);
     personIds.add(person.id);
     personCount += 1;
+    familyPeople.push(person);
     assert.ok(person.name?.trim(), `${person.id} needs a name`);
     assert.ok(person.relation?.trim(), `${person.id} needs a relation`);
     assert.equal(person.current, undefined, `${person.id} must not store page-specific current state`);
@@ -65,6 +67,7 @@ for (const name of [
   "任之清",
   "任百智",
   "郜氏",
+  "郜明",
   "任小令",
   "任新良",
   "任新书",
@@ -103,6 +106,10 @@ assert.doesNotMatch(
   "任姓子女必须显示完整姓名",
 );
 assert.ok(!familyText.includes("家人口述补名"), "confirmed family names must not carry source-review labels");
+assert.ok(
+  familyPeople.every((person) => !person.name.startsWith("郭")),
+  "族谱人物姓名中的姓氏应为“郜”，不是“郭”",
+);
 assert.equal(nodeIds.size, 70, "unexpected family node count");
 assert.equal(personCount, 113, "unexpected person count");
 assert.equal(expandableCount, 27, "unexpected expandable branch count");

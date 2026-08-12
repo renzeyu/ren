@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "treeId": "guohela-ren-family",
-  "revision": "2026-08-12.2",
+  "revision": "2026-08-12.3",
   "title": "郭合拉庄任氏族谱",
   "subtitle": "依据任百全1999年手稿与家人口述持续补充",
   "updatedAt": "2026-08-12",
@@ -376,7 +376,7 @@
                       },
                       {
                         "relation": "配偶",
-                        "name": "郭氏",
+                        "name": "郜氏",
                         "note": "郭桥人",
                         "id": "ren-shizong-family--person-2"
                       }
@@ -407,7 +407,7 @@
                           },
                           {
                             "relation": "配偶",
-                            "name": "郭氏",
+                            "name": "郜氏",
                             "id": "ren-qiyou-family--person-2"
                           }
                         ]
@@ -840,7 +840,7 @@
                       },
                       {
                         "relation": "配偶",
-                        "name": "郭氏",
+                        "name": "郜氏",
                         "note": "郜松林人；育三男",
                         "id": "huashan-family--person-2"
                       }
@@ -856,7 +856,7 @@
                       },
                       {
                         "relation": "配偶",
-                        "name": "郭明",
+                        "name": "郜明",
                         "note": "原稿疑记任村人",
                         "id": "ren-baijun-elder-daughter--person-2"
                       }
