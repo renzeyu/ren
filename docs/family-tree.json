@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "treeId": "guohela-ren-family",
-  "revision": "2026-08-12.1",
+  "revision": "2026-08-12.2",
   "title": "郭合拉庄任氏族谱",
   "subtitle": "依据任百全1999年手稿与家人口述持续补充",
   "updatedAt": "2026-08-12",
@@ -105,7 +105,7 @@
                     "people": [
                       {
                         "relation": "次子",
-                        "name": "小令",
+                        "name": "任小令",
                         "note": "手稿疑读，正式姓名待核",
                         "id": "ren-baijiang-second-son--person-1"
                       }
@@ -307,7 +307,7 @@
                         "people": [
                           {
                             "relation": "长子",
-                            "name": "新良",
+                            "name": "任新良",
                             "id": "xinhui-family--person-1"
                           },
                           {
@@ -323,7 +323,7 @@
                         "people": [
                           {
                             "relation": "次子",
-                            "name": "新书",
+                            "name": "任新书",
                             "note": "手稿记已婚，配偶未载",
                             "id": "xinshen-shiqiang--person-1"
                           }
@@ -334,7 +334,7 @@
                         "people": [
                           {
                             "relation": "三子",
-                            "name": "玉珠",
+                            "name": "任玉珠",
                             "id": "yuzhu-family--person-1"
                           },
                           {
@@ -349,7 +349,7 @@
                         "people": [
                           {
                             "relation": "四子",
-                            "name": "四方",
+                            "name": "任四方",
                             "id": "sifang--person-1"
                           }
                         ]
@@ -359,7 +359,7 @@
                         "people": [
                           {
                             "relation": "五子",
-                            "name": "玉团",
+                            "name": "任玉团",
                             "id": "tuan--person-1"
                           }
                         ]
@@ -417,7 +417,7 @@
                         "people": [
                           {
                             "relation": "女儿",
-                            "name": "梅子",
+                            "name": "任梅子",
                             "id": "meizi-family--person-1"
                           },
                           {
@@ -450,7 +450,7 @@
                         "people": [
                           {
                             "relation": "儿子",
-                            "name": "克群",
+                            "name": "任克群",
                             "id": "kequn-family--person-1"
                           }
                         ],
@@ -851,7 +851,7 @@
                     "people": [
                       {
                         "relation": "长女",
-                        "name": "丫头",
+                        "name": "任丫头",
                         "id": "ren-baijun-elder-daughter--person-1"
                       },
                       {
@@ -867,7 +867,7 @@
                     "people": [
                       {
                         "relation": "次女",
-                        "name": "金枝",
+                        "name": "任金枝",
                         "note": "手稿另记“西四庄”，关系未写全",
                         "id": "jinzhi--person-1"
                       }

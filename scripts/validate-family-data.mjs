@@ -65,15 +65,16 @@ for (const name of [
   "任之清",
   "任百智",
   "郜氏",
-  "新良",
-  "新书",
-  "玉珠",
-  "四方",
-  "玉团",
+  "任小令",
+  "任新良",
+  "任新书",
+  "任玉珠",
+  "任四方",
+  "任玉团",
   "任启光",
   "任启友",
-  "梅子",
-  "克群",
+  "任梅子",
+  "任克群",
   "任世美",
   "郜李俊",
   "任百贞",
@@ -84,8 +85,8 @@ for (const name of [
   "马茹",
   "任世如民",
   "任世山",
-  "丫头",
-  "金枝",
+  "任丫头",
+  "任金枝",
   "刘长轩",
 ]) {
   assert.ok(familyText.includes(name), `confirmed family name is missing: ${name}`);
@@ -95,6 +96,11 @@ assert.ok(
     familyText,
   ),
   "superseded family names must not remain in the central tree",
+);
+assert.doesNotMatch(
+  familyText,
+  /"name":"(?:小令|新良|新书|玉珠|四方|玉团|梅子|克群|丫头|金枝)"/,
+  "任姓子女必须显示完整姓名",
 );
 assert.ok(!familyText.includes("家人口述补名"), "confirmed family names must not carry source-review labels");
 assert.equal(nodeIds.size, 70, "unexpected family node count");
@@ -134,21 +140,22 @@ assert.match(shimeiFamily?.people?.[1]?.note ?? "", /育一女两男/, "任世�
 const shiqiangFamily = findNode(documentData.root, "ren-shiqiang-family");
 assert.deepEqual(
   shiqiangFamily?.children?.map((child) => child.people[0]?.name),
-  ["新良", "新书", "玉珠", "四方", "玉团"],
+  ["任新良", "任新书", "任玉珠", "任四方", "任玉团"],
   "任世强的五名儿子与确认档案不一致",
 );
 const shizongFamily = findNode(documentData.root, "ren-shizong-family");
 assert.deepEqual(
   shizongFamily?.children?.map((child) => child.people[0]?.name),
-  ["任启光", "任启友", "梅子"],
+  ["任启光", "任启友", "任梅子"],
   "任世宗的子女与确认档案不一致",
 );
-assert.equal(findNode(documentData.root, "kequn-family")?.people?.[0]?.note, undefined, "克群已确认");
+assert.equal(findNode(documentData.root, "kequn-family")?.people?.[0]?.name, "任克群", "任克群姓名不完整");
+assert.equal(findNode(documentData.root, "kequn-family")?.people?.[0]?.note, undefined, "任克群已确认");
 assert.equal(baimeiFamily?.people?.[1]?.name, "马玉乾", "任百美配偶应为马玉乾");
 const baijunFamily = findNode(documentData.root, "ren-baijun-family");
 assert.deepEqual(
   baijunFamily?.children?.map((child) => child.people[0]?.name),
-  ["任世如民", "任世山", "丫头", "金枝"],
+  ["任世如民", "任世山", "任丫头", "任金枝"],
   "任百俊的四名子女与确认档案不一致",
 );
 
